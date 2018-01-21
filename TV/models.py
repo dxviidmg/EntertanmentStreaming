@@ -11,7 +11,7 @@ class Category(models.Model):
 		verbose_name_plural = "categories"
 
 class Channel(models.Model):
-	category = models.ForeignKey(Category, on_delete=models.CASCADE)
+	category = models.ForeignKey(Category, related_name="category",on_delete=models.CASCADE)
 	name = models.CharField(max_length=30)
 	link = models.TextField()
 	logo = models.ImageField(upload_to='channels/%Y/%m/%d/')

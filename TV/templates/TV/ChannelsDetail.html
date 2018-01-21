@@ -1,0 +1,20 @@
+<link rel="stylesheet" href="//releases.flowplayer.org/7.0.4/commercial/skin/skin.css">
+
+<div class="flowplayer fixed-controls no-toggle no-time play-button obj"
+ data-key="$812975748999788" data-live="true" data-share="false" data-ratio="0.5625"  data-logo="">
+      <video autoplay="true" stretch="true">
+
+         <source type="application/x-mpegurl" src="{{channel.link}}">
+      </video>   
+   </div>
+
+	<script src="//code.jquery.com/jquery-1.12.4.min.js"></script>
+	<script src="//releases.flowplayer.org/7.0.4/commercial/flowplayer.min.js"></script>
+	<script src="//releases.flowplayer.org/hlsjs/flowplayer.hlsjs.min.js"></script> 
+	<script>
+		flowplayer(function (api) {
+			api.on("load", function (e, api, video) {
+				$("#vinfo").text(api.engine.engineName + " engine playing " + video.type);
+			}); 
+		});
+  </script>   

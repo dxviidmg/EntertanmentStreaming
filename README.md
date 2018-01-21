@@ -1,1 +1,1 @@
-# EntertanmentStreaming
+# EntertainmentStreaming
