@@ -1,14 +1,20 @@
+{% load static%}
 <!DOCTYPE html>
 <html>
 <head>
 	<title></title>
+	<style type="text/css">
+	
+	</style>
+	<link rel="stylesheet" type="text/css" href="{%static '/css/estilos.css'%}">
+
 </head>
 <body>
 <nav>
 	<a href="{%url 'TV:ChannelsList'%}">TV</a> |
 	<a href="#">Peliculas</a>
 </nav>
-{%block content%}
-{%endblock content%}
+<div class="menu">{%block content%}
+{%endblock content%}</div>
 </body>
 </html>

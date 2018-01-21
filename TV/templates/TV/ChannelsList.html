@@ -2,36 +2,27 @@
 
 {%block content%}
 
-<div class="row">
-		
-		<div class="col-xs-12 col-sm-12 col-md-12">
-			<h2>Canales</h2>
-		</div>
 	{%for ChannelsByCategory in ListOfChannelsByCategory%}
 
-</div>
-<div class="row">
-		<div class="col-xs-12 col-sm-12 col-md-12">
-			<h3>{{ChannelsByCategory.category}}</h3>
-		</div>
-	
-		{%for channel in ChannelsByCategory.channels%}
+				<h3>{{ChannelsByCategory.category}}</h3>
+		
+			{%for channel in ChannelsByCategory.channels%}
 
-			<div class="col-xs-4 col-sm-3 col-md-2">
-    			<a href="{%url 'TV:ChannelDetail' channel.slug%}" class="thumbnail">
-      			<img src="{{channel.logo.url}}" alt="{{channel.nombre}}">
-    	  		</a>
-      			<p align="center">{{channel.name}}</p>
-  			</div>
+				<div class="">
+	    			<a href="{%url 'TV:ChannelDetail' channel.slug%}">
+	      			<img src="{{channel.logo.url}}" alt="{{channel.nombre}}">
+	    	  		</a>
+	      			<p>{{channel.name}}</p>
+	  			</div>
 
-		{%empty%}
-	
-			<p>Lista de canales por categoria vacía</p>
-	
+			{%empty%}
+		
+				<p>Lista de canales por categoria vacía</p>
+		
+			{%endfor%}
+
 		{%endfor%}
 
-	{%endfor%}
-
-</div>
+	</div>
 
 {%endblock content%}
