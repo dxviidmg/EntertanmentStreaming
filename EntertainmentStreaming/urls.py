@@ -15,6 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path, include
+from django.conf.urls import url
+
+
+from accounts import urls as accountsUrls
 
 #Media and static
 from django.conf import settings
@@ -22,8 +26,10 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    re_path(r'^tv/', include('TV.urls')),
-    re_path(r'^movies/', include('Movies.urls')),    
+#    re_path(r'^/', include('accounts.urls')),
+    re_path(r'^tv/', include('tv.urls')),
+    re_path(r'^movies/', include('movies.urls')),
+    url(r'^', include(accountsUrls, namespace="accounts")),
 ]
 
 if settings.DEBUG:

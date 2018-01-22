@@ -1,0 +1,22 @@
+{%extends 'base.html'%}
+
+{%block content%}
+
+	{% if form.errors %}
+	
+	<div class="alert alert-danger" role="alert">Datos incorrectos</div>
+
+	{% endif %}
+
+	<form action="{%url 'accounts:login'%}" method="post" enctype='multipart/form-data'>
+	{% csrf_token %}
+		<h4>Inicia sesión</h4>
+		<p>Usuario o correo electrónico: <input type="text" name="username"></p>
+		<p>Contraseña: <input type="password" name="password"></p>
+
+		<p><input type="submit" value="Inicia sesión"></p>
+	</form>
+	
+
+
+{%endblock content%}

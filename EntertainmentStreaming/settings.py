@@ -38,8 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #Apps
-    'TV',
-    'Movies'
+    'accounts',
+    'movies',
+    'tv',
 ]
 
 MIDDLEWARE = [
@@ -128,4 +129,12 @@ MEDIA_URL = '/media/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
     '/var/www/static/',
-]    
+]
+
+#LOGOUT_REDIRECT_URL = reverse('accounts:login')
+
+#Autenticación por usuario y correo electrónico
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'accounts.authentication.EmailAuthBackend',
+)
