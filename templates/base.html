@@ -1,20 +1,22 @@
 {% load static%}
 <!DOCTYPE html>
 <html>
-<head>
-	<title></title>
-	<style type="text/css">
-	
-	</style>
-	<link rel="stylesheet" type="text/css" href="{%static '/css/estilos.css'%}">
-
-</head>
-<body>
-<nav>
-	<a href="{%url 'TV:ChannelsList'%}">TV</a> |
-	<a href="#">Peliculas</a>
-</nav>
-<div class="menu">{%block content%}
-{%endblock content%}</div>
-</body>
+	<head>
+		<title>Nombre comercial</title>
+		<meta name="viewport" content="width=device-width, user-scalable=no">
+		<meta charset="utf-8" />
+		<style type="text/css">
+		</style>
+		<link rel="stylesheet" type="text/css" href="{%static '/css/estilos.css'%}">
+	</head>
+	<body>
+		<nav>
+			<a href="#">a</a>
+			<a href="#">a</a>
+		</nav>
+		<section class="content">
+			{%block content%}
+			{%endblock content%}
+		</section>
+	</body>
 </html>

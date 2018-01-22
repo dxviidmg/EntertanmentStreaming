@@ -14,7 +14,7 @@ class Channel(models.Model):
 	category = models.ForeignKey(Category, related_name="category",on_delete=models.CASCADE)
 	name = models.CharField(max_length=30)
 	link = models.TextField()
-	logo = models.ImageField(upload_to='channels/%Y/%m/%d/')
+	image = models.TextField()
 	slug = models.SlugField(max_length=200, unique=True)
 	
 	def __str__(self):

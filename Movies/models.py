@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 
 class Category(models.Model):
 	name = models.CharField(max_length=30)
@@ -15,8 +16,9 @@ class Movie(models.Model):
 	name = models.CharField(max_length=30)
 	synopsis = models.TextField()
 	year = models.IntegerField()
+	duration = models.DurationField()
 	link = models.TextField()
-	logo = models.ImageField(upload_to='movies/%Y/%m/%d/')
+	image = models.TextField()
 	slug = models.SlugField(max_length=200, unique=True)
 	
 	def __str__(self):

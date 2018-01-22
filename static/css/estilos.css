@@ -1,9 +1,14 @@
 body {
+	margin: 0;
+	display: inline-block;
 }
 
-.men{
-	width:85%;
-	margin:0 auto;
-	background:lightblue;
-	padding:20px;
-}	
+nav {
+	background-color: green;
+	height: 50px;
+}
+section{
+	top: 0;
+	background-color: red;
+	width: 100%;
+}
