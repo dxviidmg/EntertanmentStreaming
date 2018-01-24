@@ -14,11 +14,11 @@ class Category(models.Model):
 class Movie(models.Model):
 	category = models.ForeignKey(Category, related_name="category", on_delete=models.CASCADE)
 	name = models.CharField(max_length=30)
+	link = models.TextField()
+	image = models.TextField()
 	synopsis = models.TextField()
 	year = models.IntegerField()
 	duration = models.DurationField()
-	link = models.TextField()
-	image = models.TextField()
 	slug = models.SlugField(max_length=200, unique=True)
 	
 	def __str__(self):

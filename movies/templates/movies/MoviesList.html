@@ -1,0 +1,19 @@
+{%extends 'base.html'%}
+
+{%block content%}
+
+{%for MoviesByCategory in ListOfMoviesByCategory%}
+	{{MoviesByCategory.category}}
+
+	<div class="row">
+	{%for movie in MoviesByCategory.movies%}
+		<div class="col-4 col-sm-3 col-md-2">
+			<a href="{%url 'Movies:MovieDetail' movie.slug%}">
+				<img src="{{movie.image}}" alt="{{channel.name}}" class="d-block mx-auto" style="width: 100%;">
+			</a>
+			<p class="text-center">{{movie.name}}</p>
+		</div>
+	{%endfor%}
+	</div>
+{%endfor%}
+{%endblock content%}

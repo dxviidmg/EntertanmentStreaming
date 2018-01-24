@@ -4,17 +4,18 @@
 
 	{%for ChannelsByCategory in ListOfChannelsByCategory%}
 
-				<h3>{{ChannelsByCategory.category}}</h3>
+	<h3>{{ChannelsByCategory.category}}</h3>
 		
+	<div class="row">
+  
 			{%for channel in ChannelsByCategory.channels%}
 
-				<div class="">
-	    			<a href="{%url 'TV:ChannelDetail' channel.slug%}">
-	      			<img src="{{channel.image}}" alt="{{channel.nombre}}">
-	    	  		</a>
-	      			<p>{{channel.name}}</p>
-	  			</div>
-
+		<div class="col-4 col-sm-3 col-md-2">
+			<a href="{%url 'TV:ChannelDetail' channel.slug%}">
+				<img src="{{channel.image}}" alt="{{channel.nombre}}" class="d-block mx-auto" style="width: 100%;">
+			</a>
+		</div>
+	
 			{%empty%}
 		
 				<p>Lista de canales por categoria vacía</p>
@@ -22,6 +23,7 @@
 			{%endfor%}
 
 		{%endfor%}
+		</div>
 
 	</div>
 

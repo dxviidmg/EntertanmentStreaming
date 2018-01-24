@@ -12,10 +12,16 @@
       </video>   
    </div>
 
+<div class="row">
    <p>Canales similares</p>
     {%for similarChannel in similarChannels%}
-    	{{similarChannel.name}}
+		<div class="col-6 col-sm-3 col-md-2">
+			<a href="{%url 'TV:ChannelDetail' channel.slug%}">
+				<img src="{{channel.image}}" alt="{{channel.nombre}}" class="d-block mx-auto">
+			</a>
+		</div>
     {%endfor%}
+</div>    
 	<script src="//code.jquery.com/jquery-1.12.4.min.js"></script>
 	<script src="//releases.flowplayer.org/7.0.4/commercial/flowplayer.min.js"></script>
 	<script src="//releases.flowplayer.org/hlsjs/flowplayer.hlsjs.min.js"></script> 

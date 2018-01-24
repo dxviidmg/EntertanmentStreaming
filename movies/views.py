@@ -7,7 +7,7 @@ from django.utils.decorators import method_decorator
 class MoviesListView(View):
 #	@method_decorator(login_required)
 	def get(self, request):
-		template_name = 'Movies/MoviesList.html'
+		template_name = 'movies/MoviesList.html'
 		categories = Category.objects.all()
 
 		ListOfMoviesByCategory = []
@@ -23,7 +23,7 @@ class MoviesListView(View):
 class MovieDetailView(View):
 #	@method_decorator(login_required)
 	def get(self, request, slug):
-		template_name = 'Movies/MovieDetail.html'
+		template_name = 'movies/MovieDetail.html'
 		movie = get_object_or_404(Movie, slug=slug)
 		category = Category.objects.get(pk=movie.category.pk)
 		similarMovies = Movie.objects.filter(category=category).exclude(pk=movie.pk)

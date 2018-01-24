@@ -1,0 +1,8 @@
+@media screen and (min-width: 992px) {
+    .navbar-brand{
+        padding-left: 86px;
+    }
+    .ml-auto{
+        padding-right: 86px;
+    }
+}
