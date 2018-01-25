@@ -2,19 +2,24 @@
 
 {%block content%}
 
-<h2>{{movie.name}}</h2>
 <div class="row">
 <div class="col-md-7">
+	<h2>{{movie.name}}</h2>
 <video controls autoplay style="width: 100%;">
   <source src="{{movie.link}}" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 </div>
 <div class="col-md-5">
-  <p>{{movie.synopsis}}</p>
+	<h3>Synopsis</h3>
+  <p class="text-justify">{{movie.synopsis}}</p>
 </div>
 </div>
 <div class="row">
+
+   	<div class="col-12">
+		<h3 class="sub-title">Suggestions</h3>
+   	</div>
 {%for similarMovie in similarMovies%}
 		<div class="col-4 col-sm-3 col-md-2">
 			<a href="{%url 'Movies:MovieDetail' movie.slug%}">

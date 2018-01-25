@@ -2,18 +2,37 @@
 
 {%block content%}
 
-{%for MoviesByCategory in ListOfMoviesByCategory%}
-	{{MoviesByCategory.category}}
-
 	<div class="row">
-	{%for movie in MoviesByCategory.movies%}
-		<div class="col-4 col-sm-3 col-md-2">
-			<a href="{%url 'Movies:MovieDetail' movie.slug%}">
-				<img src="{{movie.image}}" alt="{{channel.name}}" class="d-block mx-auto" style="width: 100%;">
-			</a>
-			<p class="text-center">{{movie.name}}</p>
+		<div class="col-12">
+
+		{%for MoviesByCategory in ListOfMoviesByCategory%}
+
+			<h2>{{MoviesByCategory.category}}</h2>
+
+			<div class="row">
+
+			{%for movie in MoviesByCategory.movies%}
+
+				<div class="col-4 col-sm-3 col-md-2">
+					<a href="{%url 'Movies:MovieDetail' movie.slug%}">
+						<img src="{{movie.image}}" alt="{{channel.name}}" class="d-block mx-auto" style="width: 100%;">
+					</a>
+					<p class="text-center">{{movie.name}}</p>
+				</div>
+
+			{%empty%}
+
+				<div class="col-12">
+					<p>Lista de peliculas vacía</p>
+				</div>
+
+			{%endfor%}
+
+			</div>
+
+		{%endfor%}
+
 		</div>
-	{%endfor%}
 	</div>
-{%endfor%}
+
 {%endblock content%}
