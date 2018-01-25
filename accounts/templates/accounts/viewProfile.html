@@ -1,6 +1,14 @@
 {%extends 'base.html'%}
 
 {%block content%}
-viewProfile.html
+
+
+<form action="." method="post" enctype="multipart/form-data">
+	<br>
+	{%csrf_token%}
+	{{UserForm.as_p}}
+	{{ProfileForm.as_p}}
+	<input type="submit" value="Guardar cambios">
+</form>
 
 {%endblock content%}

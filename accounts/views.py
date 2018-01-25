@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import View
 from .models import *
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
-
+from django.contrib import messages
+from .forms import *
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 
@@ -12,13 +13,13 @@ class ViewProfile(View):
 	def get(self, request):
 		template_name = "accounts/viewProfile.html"
 		profile = Profile.objects.get(user=request.user)
-#		UserForm = UserEditForm(instance=request.user)
-#		PerfilForm = PerfilCreateForm(instance=perfil)
+		UserForm = UserUpdateForm(instance=request.user)
+		ProfileForm = ProfileCreateForm(instance=profile)
 		
 		context = {
 			'profile': profile,
-#			'UserForm': UserForm,
-#			'PerfilForm': PerfilForm,
+			'UserForm': UserForm,
+			'ProfileForm': ProfileForm,
 		}
 		return render(request,template_name, context)
 #	def post(self, request):
@@ -40,7 +41,7 @@ def change_password(request):
 			user = form.save()
 			update_session_auth_hash(request, user)  # Important!
 			messages.success(request, 'Your password was successfully updated!')
-			return redirect('change_password')
+			return redirect('accounts:change_password')
 		else:
 		    messages.error(request, 'Please correct the error below.')
 	else:
