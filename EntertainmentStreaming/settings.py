@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     'accounts',
     'movies',
     'tv',
+    'payments',
+    # Modules
+    'bootstrapform',
 ]
 
 MIDDLEWARE = [

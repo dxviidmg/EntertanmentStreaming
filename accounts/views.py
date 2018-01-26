@@ -22,17 +22,17 @@ class ViewProfile(View):
 			'ProfileForm': ProfileForm,
 		}
 		return render(request,template_name, context)
-#	def post(self, request):
-#		template_name = "accounts/viewProfile.html"
-#		perfil = Perfil.objects.get(user=request.user)
-#		EdicionUserForm = UserEditForm(instance=request.user, data=request.POST)
-#		EdicionPerfilForm = PerfilCreateForm(instance=perfil, data=request.POST, files=request.FILES)
+	def post(self, request):
+		template_name = "accounts/viewProfile.html"
+		profile = Profile.objects.get(user=request.user)
+		UserForm = UserUpdateForm(instance=request.user, data=request.POST)
+		ProfileForm = ProfileCreateForm(instance=profile, data=request.POST, files=request.FILES)
 
-#		if EdicionUserForm.is_valid:
-#			EdicionUserForm.save()
-#		if EdicionPerfilForm.is_valid:
-#			EdicionPerfilForm.save()
-#		return redirect('accounts:ViewProfile')
+		if UserForm.is_valid:
+			UserForm.save()
+		if ProfileForm.is_valid:
+			ProfileForm.save()
+		return redirect('accounts:ViewProfile')
 
 def change_password(request):
 	if request.method == 'POST':

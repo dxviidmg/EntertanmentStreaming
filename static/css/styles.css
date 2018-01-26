@@ -2,6 +2,10 @@
 	padding-top: 50px;
 }
 
+.myphoto{
+	height: 25px;
+	width: 25px;
+}
 @media screen and (min-width: 992px) {
     .navbar-brand{
         padding-left: 86px;

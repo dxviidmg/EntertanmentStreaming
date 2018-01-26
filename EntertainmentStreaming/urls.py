@@ -30,6 +30,7 @@ urlpatterns = [
     re_path(r'^tv/', include('tv.urls')),
     re_path(r'^movies/', include('movies.urls')),
     url(r'^', include(accountsUrls, namespace="accounts")),
+    re_path(r'^payment/', include('payments.urls')),
 ]
 
 if settings.DEBUG:

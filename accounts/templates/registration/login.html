@@ -2,21 +2,26 @@
 
 {%block content%}
 
+	<div class="row justify-content-center">
+	<div class="col-10  col-sm-8 col-md-5">
 	{% if form.errors %}
 	
-	<div class="alert alert-danger" role="alert">Datos incorrectos</div>
+	<div class="alert alert-danger" role="alert">The data entered does not match our records. Please, review and try again</div>
 
 	{% endif %}
 
-	<form action="{%url 'accounts:login'%}" method="post" enctype='multipart/form-data'>
+	<form class="text-center" action="{%url 'accounts:login'%}" method="post" enctype='multipart/form-data'>
+	<div class="form-group">
 	{% csrf_token %}
-		<h4>Inicia sesión</h4>
-		<p>Usuario o correo electrónico: <input type="text" name="username"></p>
-		<p>Contraseña: <input type="password" name="password"></p>
+		<h4>Sign in</h4>
+		<p><input type="text" name="username" placeholder="Username or e-mail" class="form-control"></p>
+		<p> <input type="password" name="password" class="form-control" placeholder="Password"></p>
 
-		<p><input type="submit" value="Inicia sesión"></p>
+		<p><input type="submit" value="Sign in"></p>
+		</div>
 	</form>
-	
+	</div>
+	</div>
 
 
 {%endblock content%}
