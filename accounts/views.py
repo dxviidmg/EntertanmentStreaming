@@ -28,12 +28,14 @@ class ViewProfile(View):
 		UserForm = UserUpdateForm(instance=request.user, data=request.POST)
 		ProfileForm = ProfileCreateForm(instance=profile, data=request.POST, files=request.FILES)
 
-		if UserForm.is_valid:
+		if UserForm.is_valid: # or ProfileForm.is_valid:
 			UserForm.save()
 		if ProfileForm.is_valid:
 			ProfileForm.save()
+			messages.success(request, 'Your profile was successfully updated!')
 		return redirect('accounts:ViewProfile')
 
+@method_decorator(login_required)
 def change_password(request):
 	if request.method == 'POST':
 		form = PasswordChangeForm(request.user, request.POST)

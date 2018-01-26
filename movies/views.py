@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 class MoviesListView(View):
-#	@method_decorator(login_required)
+	@method_decorator(login_required)
 	def get(self, request):
 		template_name = 'movies/MoviesList.html'
 		categories = Category.objects.all()
@@ -21,7 +21,7 @@ class MoviesListView(View):
 		return render(request, template_name, context)
 
 class MovieDetailView(View):
-#	@method_decorator(login_required)
+	@method_decorator(login_required)
 	def get(self, request, slug):
 		template_name = 'movies/MovieDetail.html'
 		movie = get_object_or_404(Movie, slug=slug)

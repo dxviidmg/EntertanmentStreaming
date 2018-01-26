@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 class ChannelsListView(View):
-#	@method_decorator(login_required)
+	@method_decorator(login_required)
 	def get(self, request):
 		template_name = 'TV/ChannelsList.html'
 		categories = Category.objects.all()
@@ -21,7 +21,7 @@ class ChannelsListView(View):
 		return render(request, template_name, context)
 
 class ChannelDetailView(View):
-#	@method_decorator(login_required)
+	@method_decorator(login_required)
 	def get(self, request, slug):
 		template_name = 'TV/ChannelDetail.html'
 		channel = get_object_or_404(Channel, slug=slug)
