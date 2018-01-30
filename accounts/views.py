@@ -54,4 +54,7 @@ def change_password(request):
 class ViewHome(View):
 	def get(self, request):
 		template_name = 'accounts/home.html'
+		profile = Profile.objects.get(pk=request.user.pk)
+		profile.UpdateLook()
+		
 		return render(request, template_name)

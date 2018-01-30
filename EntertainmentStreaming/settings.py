@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'movies',
     'tv',
     'payments',
+    'main',
 ]
 
 MIDDLEWARE = [
@@ -132,19 +133,30 @@ STATICFILES_DIRS = [
     '/var/www/static/',
 ]
 
-#LOGOUT_REDIRECT_URL = reverse('accounts:login')
-
-#Autenticación por usuario y correo electrónico
+#Authentication by username and email
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'accounts.authentication.EmailAuthBackend',
 )
 
+#Messages
 from django.contrib.messages import constants as messages
 MESSAGE_TAGS = {
     messages.ERROR: 'danger',
     messages.SUCCESS: 'success'
 }
 
+#Redirects
 from django.urls import reverse_lazy
 LOGIN_REDIRECT_URL = reverse_lazy('accounts:Home')
+LOGOUT_REDIRECT_URL = reverse_lazy('main:Main')
+
+#Configuration for reset password
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'TimeSee Team'
+SERVER_EMAIL = 'example@gmail.com'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'example@gmail.com'
+EMAIL_HOST_PASSWORD = 'example'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

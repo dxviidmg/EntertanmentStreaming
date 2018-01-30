@@ -7,21 +7,21 @@ class Payment(models.Model):
 	now = datetime.datetime.now()
 
 	month_choices = (
-		('January' , 'January'),
-		('February' , 'February'),
-		('March' , 'March'),
-		('April' , 'April'),
-		('May' , 'May'),
-		('June' , 'June'),
-		('July' , 'July'),
-		('August' , 'August'),
-		('September' , 'September'),
-		('October' , 'October'),
-		('November' , 'November'),
-		('December' , 'December'),
+		('01' , 'January'),
+		('02' , 'February'),
+		('03' , 'March'),
+		('04' , 'April'),
+		('05' , 'May'),
+		('06' , 'June'),
+		('07' , 'July'),
+		('08' , 'August'),
+		('09' , 'September'),
+		('10' , 'October'),
+		('11' , 'November'),
+		('12' , 'December'),
 	)
 	year = int(now.year)
-	year_choices = [(i,str(i)) for i in range(year,(year+5))]
+	year_choices = [(i,str(i)) for i in range((year-1),(year+5))]
 
 	method_choices = (
 		('Cash' , 'Cash'),
