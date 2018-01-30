@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 class ViewProfile(View):
 	@method_decorator(login_required)
 	def get(self, request):
-		template_name = "accounts/viewProfile.html"
+		template_name = "accounts/Profile.html"
 		profile = Profile.objects.get(user=request.user)
 		UserForm = UserUpdateForm(instance=request.user)
 		ProfileForm = ProfileCreateForm(instance=profile)
@@ -23,7 +23,7 @@ class ViewProfile(View):
 		}
 		return render(request,template_name, context)
 	def post(self, request):
-		template_name = "accounts/viewProfile.html"
+		template_name = "accounts/Profile.html"
 		profile = Profile.objects.get(user=request.user)
 		UserForm = UserUpdateForm(instance=request.user, data=request.POST)
 		ProfileForm = ProfileCreateForm(instance=profile, data=request.POST, files=request.FILES)
@@ -35,7 +35,6 @@ class ViewProfile(View):
 			messages.success(request, 'Your profile was successfully updated!')
 		return redirect('accounts:ViewProfile')
 
-@method_decorator(login_required)
 def change_password(request):
 	if request.method == 'POST':
 		form = PasswordChangeForm(request.user, request.POST)
@@ -52,3 +51,7 @@ def change_password(request):
 		'form': form
 	})
 
+class ViewHome(View):
+	def get(self, request):
+		template_name = 'accounts/home.html'
+		return render(request, template_name)

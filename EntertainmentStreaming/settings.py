@@ -42,8 +42,6 @@ INSTALLED_APPS = [
     'movies',
     'tv',
     'payments',
-    # Modules
-    'bootstrapform',
 ]
 
 MIDDLEWARE = [
@@ -147,3 +145,6 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger',
     messages.SUCCESS: 'success'
 }
+
+from django.urls import reverse_lazy
+LOGIN_REDIRECT_URL = reverse_lazy('accounts:Home')
