@@ -28,7 +28,7 @@ class Payment(models.Model):
 		('Deposit' , 'Deposit'),
 	)
 
-	user = models.ForeignKey(User, on_delete=models.CASCADE, )
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	quantity = models.DecimalField(decimal_places=2, max_digits=7)
 	validity_month = models.CharField(choices=month_choices, max_length=20)
 	validity_year = models.IntegerField(choices=year_choices)
