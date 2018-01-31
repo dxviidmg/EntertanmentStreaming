@@ -7,11 +7,11 @@ class UserCreateForm(forms.ModelForm):
 		model = User
 		fields = ('first_name', 'last_name', 'email')
 
-	def clean_password2(self):
-		cd = self.cleaned_data
-		if cd['password'] != cd['password2']:
-			raise forms.ValidationError('Los passwords no coicinden')
-		return cd['password2']
+#	def clean_password2(self):
+#		cd = self.cleaned_data
+#		if cd['password'] != cd['password2']:
+#			raise forms.ValidationError('Los passwords no coicinden')
+#		return cd['password2']
 
 #	def clean_username(self):
 #		cd = self.cleaned_data['username']
@@ -28,10 +28,15 @@ class UserCreateForm(forms.ModelForm):
 class ProfileCreateForm(forms.ModelForm):
 	class Meta:
 		model = Profile
-		fields = ('photo', 'phone')
+		fields = ('phone',)
 
 class UserUpdateForm(forms.ModelForm):
 	
 	class Meta:
 		model = User
 		fields = ('first_name', 'last_name',)
+
+class ProfileUpdateForm(forms.ModelForm):
+	class Meta:
+		model = Profile
+		fields = ('photo', 'phone')		

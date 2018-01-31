@@ -7,6 +7,8 @@ from django.contrib import messages
 from .forms import *
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+#from django.contrib.auth.models import User
+from django.contrib.sessions.models import Session
 
 class ViewProfile(View):
 	@method_decorator(login_required)
@@ -14,8 +16,7 @@ class ViewProfile(View):
 		template_name = "accounts/Profile.html"
 		profile = Profile.objects.get(user=request.user)
 		UserForm = UserUpdateForm(instance=request.user)
-		ProfileForm = ProfileCreateForm(instance=profile)
-		
+		ProfileForm = ProfileUpdateForm(instance=profile)
 		context = {
 			'profile': profile,
 			'UserForm': UserForm,
@@ -26,14 +27,14 @@ class ViewProfile(View):
 		template_name = "accounts/Profile.html"
 		profile = Profile.objects.get(user=request.user)
 		UserForm = UserUpdateForm(instance=request.user, data=request.POST)
-		ProfileForm = ProfileCreateForm(instance=profile, data=request.POST, files=request.FILES)
+		ProfileForm = ProfileUpdateForm(instance=profile, data=request.POST, files=request.FILES)
 
 		if UserForm.is_valid: # or ProfileForm.is_valid:
 			UserForm.save()
 		if ProfileForm.is_valid:
 			ProfileForm.save()
 			messages.success(request, 'Your profile was successfully updated!')
-		return redirect('accounts:ViewProfile')
+		return redirect('accounts:Profile')
 
 def change_password(request):
 	if request.method == 'POST':
@@ -47,14 +48,47 @@ def change_password(request):
 		    messages.error(request, 'Please correct the error below.')
 	else:
 		form = PasswordChangeForm(request.user)
-	return render(request, 'accounts/change_password.html', {
-		'form': form
-	})
+	return render(request, 'accounts/change_password.html', {'form': form})
 
 class ViewHome(View):
 	def get(self, request):
 		template_name = 'accounts/home.html'
 		profile = Profile.objects.get(pk=request.user.pk)
 		profile.UpdateLocking()
-		print(request.session)
+
 		return render(request, template_name)
+
+class CreateViewAccount(View):
+	def get(self, request):
+		template_name = "accounts/create_account.html"
+		UserForm = UserCreateForm()
+		ProfileForm = ProfileCreateForm()
+
+		context = {
+		'UserForm':UserForm,
+		'ProfileForm': ProfileForm
+		}
+		return render(request,template_name,context)
+	def post(self,request):
+		template_name = "accounts/create_account.html"
+		last_account = User.objects.last()
+		UserForm = UserCreateForm(request.POST)
+		ProfileForm = ProfileCreateForm(request.POST, request.FILES)
+		if UserForm.is_valid() and ProfileForm.is_valid():
+			NewUser = UserForm.save(commit=False)
+			NewUser.username = str(last_account.pk + 1)
+			NewUser.first_name = str(UserForm.cleaned_data['first_name'])
+			NewUser.last_name = str(UserForm.cleaned_data['last_name'])
+			NewUser.set_password('timesee1')
+			NewUser.save()
+
+			NewProfile = ProfileForm.save(commit=False)
+			NewProfile.user = NewUser
+			NewProfile.save()
+			return redirect('accounts:Home')
+		else:
+			context = {
+			'UserForm': UserForm,
+			'ProfileForm': ProfileForm
+			}
+			return redirect('accounts:CreateAccount')

@@ -34,3 +34,9 @@ class Profile(models.Model):
 		if self.is_internet_client == False:
 			self.monthly_payment = 150
 		super(Profile, self).save(*args, **kwargs)
+
+#You show complete name	
+def get_full_name(self):
+	return '{} {}'.format(self.first_name, self.last_name)
+
+User.add_to_class("__str__", get_full_name)		

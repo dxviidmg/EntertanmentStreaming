@@ -40,7 +40,13 @@
       </li>
       <li class="nav-item">
         <a class="nav-link {%if request.user.profile.locked == True%}btn disabled {%endif%}" href="{%url 'Movies:MoviesList'%}">Movies</a>
-      </li>      
+      </li>
+
+      {%if request.user.is_staff%}
+      <li class="nav-item">
+        <a class="nav-link {%if request.user.profile.locked == True%}btn disabled {%endif%}" href="{%url 'accounts:CreateAccount'%}">Create account</a>
+      </li>
+      {%endif%}
     </ul>
 
     <ul class="navbar-nav ml-auto">
@@ -49,7 +55,7 @@
       </li>  
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {{request.user.first_name}} {{request.user.last_name}}
+          {{request.user.get_full_name}}
           <img src="{{request.user.profile.photo.url}}" class="myphoto">
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
