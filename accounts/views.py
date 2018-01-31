@@ -56,4 +56,5 @@ class ViewHome(View):
 		template_name = 'accounts/home.html'
 		profile = Profile.objects.get(pk=request.user.pk)
 		profile.UpdateLocking()
+		print(request.session)
 		return render(request, template_name)
