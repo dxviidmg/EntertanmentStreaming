@@ -20,3 +20,10 @@
 	padding-top: 25px;
 }
 }
+
+.landing {
+    background-image: url('https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX1982952.jpg');
+    background-size: cover;
+    height: 100vh;
+    padding: 20px;
+}

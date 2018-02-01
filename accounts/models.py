@@ -12,23 +12,31 @@ class Profile(models.Model):
 	locked = models.BooleanField(default=False)
 	is_internet_client = models.BooleanField(default=False)
 	monthly_payment = models.DecimalField(decimal_places=2, max_digits=5, default=100)
-	
+
 	def __str__(self):
 		return 'Perfil del usuario {} {}'.format(self.user.first_name, self.user.last_name)
 
 	def UpdateLocking(self):
-		now = datetime.datetime.now()
-		last_payment = Payment.objects.filter(user=self.user).last()
-
-		if last_payment.validity_year < now.year:
-			self.locked = True
-			self.save()
-		elif last_payment.validity_year == now.year and int(last_payment.validity_month) < now.month:
-			self.locked = True
-			self.save()
-		else:
+		if self.user.is_staff:
 			self.locked = False
 			self.save()
+		else:
+			now = datetime.datetime.now()
+			last_payment = Payment.objects.filter(user=self.user).last()
+
+			try:
+				if last_payment.validity_year < now.year:
+					self.locked = True
+					self.save()
+				elif last_payment.validity_year == now.year and int(last_payment.validity_month) < now.month:
+					self.locked = True
+					self.save()
+				else:
+					self.locked = False
+					self.save()
+			except:
+				self.locked = True
+				self.save()
 
 	def save(self, *args, **kwargs):
 		if self.is_internet_client == False:
@@ -39,4 +47,4 @@ class Profile(models.Model):
 def get_full_name(self):
 	return '{} {}'.format(self.first_name, self.last_name)
 
-User.add_to_class("__str__", get_full_name)		
+User.add_to_class("__str__", get_full_name)

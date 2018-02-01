@@ -7,9 +7,10 @@ app_name = 'accounts'
 urlpatterns = [
 	url(r'^login', login,name="login"),
 	url(r'^logout/$', logout, name="logout"),
-	url(r'^accounts/profile/$', views.ViewProfile.as_view(), name="Profile"),
-	url(r'^accounts/home/$', views.ViewHome.as_view(), name="Home"),	
-	url(r'^accounts/nuevo/$', views.CreateViewAccount.as_view(), name="CreateAccount"),	
+	url(r'^account/profile/$', views.ViewProfile.as_view(), name="Profile"),
+	url(r'^account/home/$', views.ViewHome.as_view(), name="Home"),	
+	url(r'^accounts/nuevo/$', views.CreateViewAccount.as_view(), name="CreateAccount"),
+	url(r'^accounts/list/$', views.ListViewAccounts.as_view(), name="ListAccounts"),		
 	url(r'^password/$', views.change_password, name='change_password'),
 #
 	url(r'^reset-password/$', password_reset, {'template_name': 'accounts/reset_password.html', 'post_reset_redirect': 'accounts:password_reset_done', 'email_template_name': 'accounts/reset_password_email.html'}, name='reset_password'),

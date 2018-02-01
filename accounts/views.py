@@ -8,7 +8,7 @@ from .forms import *
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 #from django.contrib.auth.models import User
-from django.contrib.sessions.models import Session
+#from django.contrib.sessions.models import Session
 
 class ViewProfile(View):
 	@method_decorator(login_required)
@@ -53,7 +53,7 @@ def change_password(request):
 class ViewHome(View):
 	def get(self, request):
 		template_name = 'accounts/home.html'
-		profile = Profile.objects.get(pk=request.user.pk)
+		profile = Profile.objects.get(user=request.user)
 		profile.UpdateLocking()
 
 		return render(request, template_name)
@@ -91,4 +91,14 @@ class CreateViewAccount(View):
 			'UserForm': UserForm,
 			'ProfileForm': ProfileForm
 			}
-			return redirect('accounts:CreateAccount')
+			return redirect('accounts:ListAccounts')
+
+class ListViewAccounts(View):
+	def get(self, request):
+		template_name = "accounts/list_accounts.html"
+		users = User.objects.filter(is_staff=False)
+
+		context = {
+			'users': users
+		}
+		return render(request,template_name,context)			

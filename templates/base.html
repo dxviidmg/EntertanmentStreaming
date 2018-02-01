@@ -43,9 +43,15 @@
       </li>
 
       {%if request.user.is_staff%}
-      <li class="nav-item">
-        <a class="nav-link {%if request.user.profile.locked == True%}btn disabled {%endif%}" href="{%url 'accounts:CreateAccount'%}">Create account</a>
       </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Accounts
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="{%url 'accounts:CreateAccount'%}">Create</a>
+          <a class="dropdown-item" href="{%url 'accounts:ListAccounts'%}">Lists</a>
+      </li>      
       {%endif%}
     </ul>
 
@@ -64,7 +70,6 @@
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="{%url 'accounts:logout'%}">logout</a> 
         </div>
-
       </li>
     </ul>
   </div>
