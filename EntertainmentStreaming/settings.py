@@ -162,8 +162,3 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'example@gmail.com'
 EMAIL_HOST_PASSWORD = 'example'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-    '/var/www/static/',
-]
