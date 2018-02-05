@@ -56,9 +56,12 @@
     </ul>
 
     <ul class="navbar-nav ml-auto">
+
+    {%if request.user.is_staff is False%}
       <li class="nav-item">
         <a class="nav-link" href="{%url 'payments:PaymentsList'%}">Payments</a>
-      </li>  
+      </li>
+    {%endif%}
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           {{request.user.get_full_name}}

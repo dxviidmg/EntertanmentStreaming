@@ -156,9 +156,9 @@ LOGOUT_REDIRECT_URL = reverse_lazy('main:Main')
 #Configuration for reset password
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'TimeSee Team'
-SERVER_EMAIL = 'example@gmail.com'
+SERVER_EMAIL = 'ejemplo@gmail.com'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'example@gmail.com'
-EMAIL_HOST_PASSWORD = 'example'
+EMAIL_HOST_USER = 'ejemplo@gmail.com'
+EMAIL_HOST_PASSWORD = 'ejemplo'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

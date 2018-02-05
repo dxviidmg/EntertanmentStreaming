@@ -13,11 +13,8 @@
 		<p><input id="{{ field.id_for_label }}" type="text" name="{{ field.html_name }}" placeholder="{{ field.label}}" class="form-control"/></p>
 
 		{%endfor%}
-		{%for field in ProfileForm%}
 
-		<p><input id="{{ field.id_for_label }}" type="text" name="{{ field.html_name }}" placeholder="{{ field.label}}" class="form-control"/></p>
-
-		{%endfor%}		
+		{{ProfileForm.as_p}}
 		<input type="submit" value="Create account">
 	</form>
 

@@ -22,13 +22,13 @@ class UserCreateForm(forms.ModelForm):
 	def clean_email(self):
 		cd = self.cleaned_data['email']
 		if User.objects.filter(email=cd).exists():
-			raise forms.ValidationError("Este correo electrónico ya ha sido registrado")
+			raise forms.ValidationError("This email has already been registered")
 		return cd
 
 class ProfileCreateForm(forms.ModelForm):
 	class Meta:
 		model = Profile
-		fields = ('phone',)
+		fields = ('phone', 'is_internet_client')
 
 class UserUpdateForm(forms.ModelForm):
 	

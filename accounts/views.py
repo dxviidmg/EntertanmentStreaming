@@ -63,7 +63,7 @@ class CreateViewAccount(View):
 		template_name = "accounts/create_account.html"
 		UserForm = UserCreateForm()
 		ProfileForm = ProfileCreateForm()
-
+		last_account = User.objects.last()
 		context = {
 		'UserForm':UserForm,
 		'ProfileForm': ProfileForm
@@ -72,6 +72,7 @@ class CreateViewAccount(View):
 	def post(self,request):
 		template_name = "accounts/create_account.html"
 		last_account = User.objects.last()
+
 		UserForm = UserCreateForm(request.POST)
 		ProfileForm = ProfileCreateForm(request.POST, request.FILES)
 		if UserForm.is_valid() and ProfileForm.is_valid():
@@ -85,13 +86,13 @@ class CreateViewAccount(View):
 			NewProfile = ProfileForm.save(commit=False)
 			NewProfile.user = NewUser
 			NewProfile.save()
-			return redirect('accounts:Home')
-		else:
-			context = {
-			'UserForm': UserForm,
-			'ProfileForm': ProfileForm
-			}
-			return redirect('accounts:ListAccounts')
+			return redirect('payments:PaymentsListClient', NewUser.username)
+#		else:
+#			context = {
+#			'UserForm': UserForm,
+#			'ProfileForm': ProfileForm
+#			}
+#			return render(request,template_name,context)
 
 class ListViewAccounts(View):
 	def get(self, request):

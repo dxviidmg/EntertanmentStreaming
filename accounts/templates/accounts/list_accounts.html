@@ -13,6 +13,7 @@
 							<th>Phone</th>
 							<th>Payment monthy</th>
 							<th>Locked</th>
+							<th>Actions</th>
 						</tr>
 					</thead>
 	{%for user in users%}
@@ -23,7 +24,8 @@
 							<td>{{user.email}}</td>
 							<td>{{user.profile.phone}}</td>
 							<td>{{user.profile.monthly_payment}}</td>
-							<td>{{user.profile.locked}}</td>									
+							<td>{{user.profile.locked}}</td>
+							<td><a href="{%url 'payments:PaymentsListClient' user.pk%}">Pay</a></td>								
 						</tr>
 			
 

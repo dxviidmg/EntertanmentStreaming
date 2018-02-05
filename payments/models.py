@@ -28,12 +28,13 @@ class Payment(models.Model):
 		('Deposit' , 'Deposit'),
 	)
 
-	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user")
 	quantity = models.DecimalField(decimal_places=2, max_digits=7)
 	validity_month = models.CharField(choices=month_choices, max_length=20)
 	validity_year = models.IntegerField(choices=year_choices)
 	method = models.CharField(choices=method_choices, default="Cash", max_length=20)
 	created = models.DateTimeField(default=timezone.now)
+	author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="author", null=True, blank=True)
 
 	def __str__(self):
 		return 'Payment of {} {} until {} {} '.format(self.user.first_name, self.user.last_name, self.validity_month, self.validity_year)	

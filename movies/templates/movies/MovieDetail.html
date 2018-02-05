@@ -2,36 +2,36 @@
 
 {%block content%}
 
-<div class="row">
-<div class="col-md-7">
-	<h2>{{movie.name}}</h2>
-<video controls autoplay style="width: 100%;" controlsList="nodownload">
-  <source src="{{movie.link}}" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-</div>
-<div class="col-md-5">
-	<h3>Synopsis</h3>
-  <p class="text-justify">{{movie.synopsis}}</p>
-
-  <p>Year: {{movie.year}}</p>
-    <p>Duration: {{movie.duration}}</p>
-</div>
-</div>
-<div class="row">
-
-   	<div class="col-12">
-		<h3 class="sub-title">Suggestions</h3>
-   	</div>
-{%for similarMovie in similarMovies%}
-		<div class="col-4 col-sm-3 col-md-2">
-			<a href="{%url 'Movies:MovieDetail' movie.slug%}">
-				<img src="{{movie.image}}" alt="{{channel.name}}" class="d-block mx-auto" style="width: 100%;">
-			</a>
-			<p class="text-center">{{movie.name}}</p>
+	<div class="row">
+		<div class="col-md-7">
+			<h2>{{movie.name}}</h2>
+			<video controls autoplay style="width: 100%;" controlsList="nodownload">
+			<source src="{{movie.link}}" type="video/mp4">
+			Your browser does not support the video tag.
+			</video>
 		</div>
-{%empty%}
-vacio
-{%endfor%}
-</div>
+		<div class="col-md-5">
+			<h3>Synopsis</h3>
+			<p class="text-justify">{{movie.synopsis}}</p>
+
+			<p>Year: {{movie.year}}</p>
+			<p>Duration: {{movie.duration}}</p>
+		</div>
+	</div>
+
+	<div class="row">
+	<div class="col-12">
+	<h3 class="sub-title">Suggestions</h3>
+	</div>
+
+	{%for similarMovie in similarMovies%}
+	<div class="col-4 col-sm-3 col-md-2">
+	<a href="{%url 'Movies:MovieDetail' movie.slug%}">
+	<img src="{{movie.image}}" alt="{{channel.name}}" class="d-block mx-auto" style="width: 100%;">
+	</a>
+	<p class="text-center">{{movie.name}}</p>
+	</div>
+	{%endfor%}
+	</div>
+
 {%endblock content%}
