@@ -50,5 +50,8 @@ def get_full_name(self):
 User.add_to_class("__str__", get_full_name)
 
 class Visitor(models.Model):
-    pupil = models.OneToOneField(settings.AUTH_USER_MODEL, null=False, on_delete=models.CASCADE)
-    session_key = models.CharField(null=False, max_length=40)
+	pupil = models.OneToOneField(settings.AUTH_USER_MODEL, null=False, on_delete=models.CASCADE)
+	session_key = models.CharField(null=False, max_length=40)
+
+	def __str__(self):
+		return 'Key of {}'.format(self.pupil)

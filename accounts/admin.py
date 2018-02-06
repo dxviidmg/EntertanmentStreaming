@@ -9,13 +9,18 @@ class ProfileInline(admin.StackedInline):
 	can_delete = False
 	fk_name = 'user'
 
+class VisitorInline(admin.StackedInline):
+	model = Visitor
+	can_delete = False
+	fk_name = 'pupil'
+
 class PaymentsInline(admin.StackedInline):
 	model = Payment
 	can_delete = False
 	fk_name = 'user'	
 
 class CustomUserAdmin(UserAdmin):
-	inlines = (ProfileInline, PaymentsInline)
+	inlines = (ProfileInline, VisitorInline, PaymentsInline)
 
 	def get_inline_instances(self, request, obj=None):
 		if not obj:
@@ -26,3 +31,4 @@ admin.site.unregister(User)
 admin.site.register(User, CustomUserAdmin)
 
 admin.site.register(Profile)
+admin.site.register(Visitor)
