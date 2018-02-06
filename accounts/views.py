@@ -102,4 +102,4 @@ class ListViewAccounts(View):
 		context = {
 			'users': users
 		}
-		return render(request,template_name,context)			
+		return render(request,template_name,context)
