@@ -7,8 +7,6 @@ from django.contrib import messages
 from .forms import *
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
-#from django.contrib.auth.models import User
-#from django.contrib.sessions.models import Session
 
 class ViewProfile(View):
 	@method_decorator(login_required)
@@ -87,12 +85,6 @@ class CreateViewAccount(View):
 			NewProfile.user = NewUser
 			NewProfile.save()
 			return redirect('payments:PaymentsListClient', NewUser.username)
-#		else:
-#			context = {
-#			'UserForm': UserForm,
-#			'ProfileForm': ProfileForm
-#			}
-#			return render(request,template_name,context)
 
 class ListViewAccounts(View):
 	def get(self, request):
