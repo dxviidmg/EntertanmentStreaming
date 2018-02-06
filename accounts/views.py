@@ -51,11 +51,11 @@ def change_password(request):
 	return render(request, 'accounts/change_password.html', {'form': form})
 
 class ViewHome(View):
+	@method_decorator(login_required)
 	def get(self, request):
 		template_name = 'accounts/home.html'
 		profile = Profile.objects.get(user=request.user)
 		profile.UpdateLocking()
-
 		return render(request, template_name)
 
 class CreateViewAccount(View):

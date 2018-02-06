@@ -54,7 +54,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     #my middleware
-#    'accounts.middleware.UserRestrict'
+    'accounts.middleware.OneSessionPerUserMiddleware'
 ]
 
 ROOT_URLCONF = 'EntertainmentStreaming.urls'
@@ -163,3 +163,10 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'ejemplo@gmail.com'
 EMAIL_HOST_PASSWORD = 'ejemplo'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+}
