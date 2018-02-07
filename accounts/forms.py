@@ -28,7 +28,7 @@ class UserCreateForm(forms.ModelForm):
 class ProfileCreateForm(forms.ModelForm):
 	class Meta:
 		model = Profile
-		fields = ('phone', 'is_internet_client')
+		fields = ('country', 'phone', 'is_internet_client')
 
 class UserUpdateForm(forms.ModelForm):
 	

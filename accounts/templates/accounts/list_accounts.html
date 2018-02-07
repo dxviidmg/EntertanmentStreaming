@@ -11,6 +11,7 @@
 							<th>Name</th>
 							<th>Email</th>
 							<th>Phone</th>
+							<th>Country</th>	
 							<th>Payment monthy</th>
 							<th>Locked</th>
 							<th>Actions</th>
@@ -23,14 +24,20 @@
 							<td>{{user.get_full_name}}</td>
 							<td>{{user.email}}</td>
 							<td>{{user.profile.phone}}</td>
-							<td>{{user.profile.monthly_payment}}</td>
+							<td>{{user.profile.country}}</td>		
+							<td>{{user.profile.monthly_payment}} {{user.profile.foreign_currency}}</td>
 							<td>{{user.profile.locked}}</td>
-							<td><a href="{%url 'payments:PaymentsListClient' user.pk%}">Pay</a></td>								
+							<td><a href="{%url 'payments:PaymentsListClient' user.pk%}">Pay</a></td>	
 						</tr>
-			
 
-					</tbody>
+	{%empty%}
+
+						<tr>
+							<td colspan="8">Users list empty</td>
+						</tr>
+								
 	{%endfor%}
+					</tbody>
 				</table>
 			</div>
 		</div>

@@ -10,8 +10,8 @@
 		{%if request.user.is_staff%}
 		<h3>User's info</h3>
 		<p>Name: {{user.get_full_name}}</p>
-		<p>Monthly payment: {{user.profile.monthly_payment}}</p>
-		
+		<p>Monthly payment: {{user.profile.monthly_payment}} {{user.profile.foreign_currency}}</p>
+		<p>Country: {{user.profile.country}}</p>
 		<form method="post">
 			<div class="form-group">
 				<h3>Make payment</h3>
@@ -44,7 +44,7 @@
 					<td>{{payment.pk}}</td>
 					<td>{{payment.validity_month}} {{payment.validity_year}}</td>
 					<td>{{payment.method}}</td>
-					<td>${{payment.quantity}}</td>
+					<td>${{payment.quantity}} {{user.profile.foreign_currency}}</td>
 
 					{%if request.user.is_staff%}
 					<td>{{payment.author}}</td>

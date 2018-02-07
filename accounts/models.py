@@ -6,12 +6,19 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 class Profile(models.Model):
+	country_choices = (
+		("MX", "Mexico"), #Yo
+		("USA", "United States of America"),
+	)
+
 	user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 	photo = models.ImageField(upload_to="users/%Y/%m/%d", blank=True,  default="/userDefault.png")
 	phone = models.CharField(max_length=13, blank=True, null=True)
+	country = models.CharField(max_length=10, choices=country_choices, default="MX")
 	locked = models.BooleanField(default=False)
+	monthly_payment = models.DecimalField(decimal_places=2, max_digits=5)
+	foreign_currency = models.CharField(max_length=10, default="MXN")
 	is_internet_client = models.BooleanField(default=False)
-	monthly_payment = models.DecimalField(decimal_places=2, max_digits=5, default=100)
 
 	def __str__(self):
 		return 'Perfil del usuario {} {}'.format(self.user.first_name, self.user.last_name)
@@ -39,8 +46,15 @@ class Profile(models.Model):
 				self.save()
 
 	def save(self, *args, **kwargs):
-		if self.is_internet_client == False:
-			self.monthly_payment = 150
+		if self.country == "USA":
+			self.foreign_currency = "USD"
+			self.monthly_payment = 10
+		elif self.country == "MX":
+			self.foreign_currency = "MXN"
+			if self.is_internet_client == False:
+				self.monthly_payment = 150
+			elif self.is_internet_client == True:
+				self.monthly_payment = 100
 		super(Profile, self).save(*args, **kwargs)
 
 #You show complete name	
