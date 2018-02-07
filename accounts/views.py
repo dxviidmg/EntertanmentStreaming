@@ -53,7 +53,8 @@ class ViewHome(View):
 	def get(self, request):
 		template_name = 'accounts/home.html'
 		profile = Profile.objects.get(user=request.user)
-		profile.UpdateLocking()
+		if request.user.is_staff == False:
+			profile.UpdateLocking()
 		return render(request, template_name)
 
 class CreateViewAccount(View):

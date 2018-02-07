@@ -32,6 +32,8 @@
 					<th>Validate until</th>
 					<th>Method</th>
 					<th>Quantity</th>
+					<th>Reference number</th>
+					<th>Voucher</th>
 					{%if request.user.is_staff%}
 					<th>Realized by</th>
 					{%endif%}									
@@ -40,12 +42,13 @@
 			<tbody>
 	{%for payment in payments%}
 				<tr>
-					<td>{{payment.created|date:"F/d/o"}}</td>
+					<td>{{payment.created}}</td>
 					<td>{{payment.pk}}</td>
-					<td>{{payment.validity_month}} {{payment.validity_year}}</td>
+					<td>{{payment.deadline}}</td>
 					<td>{{payment.method}}</td>
 					<td>${{payment.quantity}} {{user.profile.foreign_currency}}</td>
-
+					<td>{%if payment.reference_number%}{{payment.reference_number}}{%endif%}</td>
+					<td>{%if payment.voucher%}<a href="{{payment.voucher.url}}">See</a>{%endif%}</td>
 					{%if request.user.is_staff%}
 					<td>{{payment.author}}</td>
 					{%endif%}

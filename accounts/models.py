@@ -1,13 +1,12 @@
 from django.db import models
 from django.conf import settings
 from payments.models import *
-import datetime
-from django.db.models.signals import post_save
-from django.dispatch import receiver
+
+from dateutil.relativedelta import relativedelta
 
 class Profile(models.Model):
 	country_choices = (
-		("MX", "Mexico"), #Yo
+		("MX", "Mexico"),
 		("USA", "United States of America"),
 	)
 
@@ -19,33 +18,32 @@ class Profile(models.Model):
 	monthly_payment = models.DecimalField(decimal_places=2, max_digits=5)
 	foreign_currency = models.CharField(max_length=10, default="MXN")
 	is_internet_client = models.BooleanField(default=False)
+	free_trial_deadline = models.DateTimeField(null=True, blank=True)
 
 	def __str__(self):
 		return 'Perfil del usuario {} {}'.format(self.user.first_name, self.user.last_name)
 
 	def UpdateLocking(self):
-		if self.user.is_staff:
-			self.locked = False
-			self.save()
-		else:
-			now = datetime.datetime.now()
-			last_payment = Payment.objects.filter(user=self.user).last()
+		now = timezone.now()
+		last_payment = Payment.objects.filter(user=self.user).last()
 
-			try:
-				if last_payment.validity_year < now.year:
-					self.locked = True
-					self.save()
-				elif last_payment.validity_year == now.year and int(last_payment.validity_month) < now.month:
-					self.locked = True
-					self.save()
-				else:
-					self.locked = False
-					self.save()
-			except:
+		if last_payment is None:
+			if now > self.user.profile.free_trial_deadline:
 				self.locked = True
+				self.save()
+			else:
+				self.locked = False
+				self.save()
+		else:
+			if now > last_payment.deadline:
+				self.locked = True
+				self.save()
+			else:
+				self.locked = False
 				self.save()
 
 	def save(self, *args, **kwargs):
+		#Define foreign currency and monthly payment
 		if self.country == "USA":
 			self.foreign_currency = "USD"
 			self.monthly_payment = 10
@@ -55,6 +53,10 @@ class Profile(models.Model):
 				self.monthly_payment = 150
 			elif self.is_internet_client == True:
 				self.monthly_payment = 100
+
+		#Define free_trial_deadline
+		if self.user.is_staff == False:
+			self.free_trial_deadline = self.user.date_joined + relativedelta(months=1)
 		super(Profile, self).save(*args, **kwargs)
 
 #You show complete name	
