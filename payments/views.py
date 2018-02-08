@@ -9,7 +9,7 @@ from .forms import *
 class PaymentsListView(View):
 	@method_decorator(login_required)
 	def get(self, request, pk=None):
-		template_name = 'payments/PaymentsList.html'
+		template_name = 'payments/list_payments.html'
 		if request.user.is_staff:
 			user = User.objects.get(pk=pk)
 		else:

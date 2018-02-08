@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 class ViewProfile(View):
 	@method_decorator(login_required)
 	def get(self, request):
-		template_name = "accounts/Profile.html"
+		template_name = "accounts/profile.html"
 		profile = Profile.objects.get(user=request.user)
 		UserForm = UserUpdateForm(instance=request.user)
 		ProfileForm = ProfileUpdateForm(instance=profile)

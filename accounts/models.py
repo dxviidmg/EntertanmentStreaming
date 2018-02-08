@@ -1,7 +1,6 @@
 from django.db import models
 from django.conf import settings
 from payments.models import *
-
 from dateutil.relativedelta import relativedelta
 
 class Profile(models.Model):
@@ -11,7 +10,7 @@ class Profile(models.Model):
 	)
 
 	user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-	photo = models.ImageField(upload_to="users/%Y/%m/%d", blank=True,  default="/userDefault.png")
+	photo = models.ImageField(upload_to="users/%Y/%m/%d", blank=True, default="/userDefault.png")
 	phone = models.CharField(max_length=13, blank=True, null=True)
 	country = models.CharField(max_length=10, choices=country_choices, default="MX")
 	locked = models.BooleanField(default=False)
