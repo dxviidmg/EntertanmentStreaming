@@ -3,26 +3,26 @@
 {%block content%}
 
 	<div class="row justify-content-center">
-	<div class="col-10  col-sm-8 col-md-5">
-	{% if form.errors %}
-	
-	<div class="alert alert-danger" role="alert">The data entered does not match our records. Please, review and try again</div>
+		<div class="col-10  col-sm-8 col-md-5">
 
-	{% endif %}
+		{% if form.errors %}
+		
+			<div class="alert alert-danger" role="alert">The data entered does not match our records. Please, review and try again
+			</div>
 
-	<form class="text-center" action="{%url 'accounts:login'%}" method="post" enctype='multipart/form-data'>
-	<div class="form-group">
-	{% csrf_token %}
-		<h4>Sign in</h4>
-		<p><input type="text" name="username" placeholder="Username or e-mail" class="form-control"></p>
-		<p> <input type="password" name="password" class="form-control" placeholder="Password"></p>
+		{% endif %}
 
-		<p><input type="submit" value="Sign in"></p>
-		<p><a href="{%url 'accounts:reset_password'%}">did you forget your password?</a></p>		
+			<form class="text-center form-group" action="{%url 'accounts:login'%}" method="post" enctype='multipart/form-data'>
+				{% csrf_token %}
+					<h4>Sign in</h4>
+					<p><input type="text" name="username" placeholder="Username or e-mail" class="form-control"></p>
+					<p><input type="password" name="password" class="form-control" placeholder="Password"></p>
+
+					<p><input type="submit" value="Sign in"></p>
+					<p><a href="{%url 'accounts:reset_password'%}">did you forget your password?</a></p>		
+				
+			</form>
 		</div>
-	</form>
 	</div>
-	</div>
-
 
 {%endblock content%}

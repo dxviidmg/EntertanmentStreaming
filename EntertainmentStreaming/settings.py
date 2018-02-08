@@ -134,6 +134,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
     '/var/www/static/',
 ]
+
 #STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
 #Authentication by username and email
@@ -154,19 +155,12 @@ from django.urls import reverse_lazy
 LOGIN_REDIRECT_URL = reverse_lazy('accounts:Home')
 LOGOUT_REDIRECT_URL = reverse_lazy('main:Main')
 
-#Configuration for reset password
+#Configuration for reset password by email
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'TimeSee Team'
-SERVER_EMAIL = 'ejemplo@gmail.com'
+SERVER_EMAIL = 'youremail@gmail.com'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'ejemplo@gmail.com'
+EMAIL_HOST_USER = 'youremail@gmail.com'
 EMAIL_HOST_PASSWORD = 'ejemplo'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '127.0.0.1:11211',
-    }
-}

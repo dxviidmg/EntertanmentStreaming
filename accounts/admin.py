@@ -14,13 +14,13 @@ class VisitorInline(admin.StackedInline):
 	can_delete = False
 	fk_name = 'pupil'
 
-#class PaymentsInline(admin.StackedInline):
-#	model = Payment
-#	can_delete = False
-#	fk_name = 'user'	
+class PaymentsInline(admin.StackedInline):
+	model = Payment
+	can_delete = False
+	fk_name = 'user'	
 
 class CustomUserAdmin(UserAdmin):
-	inlines = (ProfileInline, VisitorInline)
+	inlines = (ProfileInline, VisitorInline, PaymentsInline)
 
 	def get_inline_instances(self, request, obj=None):
 		if not obj:

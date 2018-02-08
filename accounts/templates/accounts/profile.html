@@ -2,28 +2,28 @@
 
 {%block content%}
 
-<div class="row">
-	<div class="col-12">
-		<form action="." method="post" enctype="multipart/form-data">
-			<br>
-			{%csrf_token%}
+	<div class="row">
+		<div class="col-12">
+			<form action="." method="post" enctype="multipart/form-data">
+				<br>
+				{%csrf_token%}
 
-					{%for field in UserForm%}
+						{%for field in UserForm%}
 
-					{{field.label_tag}}
-					<p><input id="{{field.id_for_label }}" type="text" name="{{field.html_name }}" placeholder="{{ field.label}}" class="form-control" value="{{field.value}}"/></p>
+						{{field.label_tag}}
+						<p><input id="{{field.id_for_label }}" type="text" name="{{field.html_name }}" placeholder="{{ field.label}}" class="form-control" value="{{field.value}}"/></p>
 
-					{%endfor%}
+						{%endfor%}
 
 
-					{{ProfileForm.photo.label_tag}}
-					<p><input id="{{ProfileForm.photo.id_for_label}}" type="file" name="{{ProfileForm.photo.html_name}}" placeholder="{{ProfileForm.photo.label}}" class="form-control-file"/></p>
+						{{ProfileForm.photo.label_tag}}
+						<p><input id="{{ProfileForm.photo.id_for_label}}" type="file" name="{{ProfileForm.photo.html_name}}" placeholder="{{ProfileForm.photo.label}}" class="form-control-file"/></p>
 
-					{{ProfileForm.phone.label_tag}}
-					<p><input id="{{ProfileForm.phone.id_for_label}}" type="text" name="{{ProfileForm.phone.html_name}}" placeholder="{{ProfileForm.phone.label}}" class="form-control" value="{{ProfileForm.phone.value}}" /></p>
-			<button type="submit">Save changes</button>
-		</form>
+						{{ProfileForm.phone.label_tag}}
+						<p><input id="{{ProfileForm.phone.id_for_label}}" type="text" name="{{ProfileForm.phone.html_name}}" placeholder="{{ProfileForm.phone.label}}" class="form-control" value="{{ProfileForm.phone.value}}" /></p>
+				<button type="submit">Save changes</button>
+			</form>
+		</div>
 	</div>
-</div>
 
 {%endblock content%}

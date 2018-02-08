@@ -1,5 +1,5 @@
 from django.db import models
-from django.conf import settings
+from django.contrib.auth.models import User
 from payments.models import *
 from dateutil.relativedelta import relativedelta
 
@@ -9,7 +9,7 @@ class Profile(models.Model):
 		("USA", "United States of America"),
 	)
 
-	user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	photo = models.ImageField(upload_to="users/%Y/%m/%d", blank=True, default="/userDefault.png")
 	phone = models.CharField(max_length=13, blank=True, null=True)
 	country = models.CharField(max_length=10, choices=country_choices, default="MX")
@@ -65,7 +65,7 @@ def get_full_name(self):
 User.add_to_class("__str__", get_full_name)
 
 class Visitor(models.Model):
-	pupil = models.OneToOneField(settings.AUTH_USER_MODEL, null=False, on_delete=models.CASCADE)
+	pupil = models.OneToOneField(User, null=False, on_delete=models.CASCADE)
 	session_key = models.CharField(null=False, max_length=40)
 
 	def __str__(self):

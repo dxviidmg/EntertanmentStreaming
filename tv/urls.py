@@ -5,5 +5,5 @@ app_name = 'TV'
 
 urlpatterns = [
 	url('channel/(?P<slug>[-\w]+)/$', views.ChannelDetailView.as_view(), name="ChannelDetail"),
-	url('channels', views.ChannelsListView.as_view(), name="ChannelsList"),
+	url('channels/$', views.ChannelsListView.as_view(), name="ChannelsList"),
 ]

@@ -5,7 +5,6 @@ from dateutil.relativedelta import relativedelta
 
 class Payment(models.Model):
 	months_choices = [(i,i) for i in range((1),(13))]
-
 	method_choices = (
 		('Cash' , 'Cash'),
 		('Deposit' , 'Deposit'),
@@ -27,5 +26,9 @@ class Payment(models.Model):
 	def save(self, *args, **kwargs):
 		now = timezone.now()
 		self.quantity = self.months * self.user.profile.monthly_payment
-		self.deadline = now + relativedelta(months=self.months)
+		last_payment = Payment.objects.filter(user=self.user).last()
+		if last_payment is not None and now < last_payment.deadline:
+			self.deadline = last_payment.deadline + relativedelta(months=self.months)
+		else:
+			self.deadline = self.created + relativedelta(months=self.months)
 		super(Payment, self).save(*args, **kwargs)		
