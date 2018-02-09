@@ -54,7 +54,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     #my middleware
-    'accounts.middleware.OneSessionPerUserMiddleware'
+#    'accounts.middleware.UserRestrict'
 ]
 
 ROOT_URLCONF = 'EntertainmentStreaming.urls'
@@ -83,13 +83,10 @@ WSGI_APPLICATION = 'EntertainmentStreaming.wsgi.application'
 
 DATABASES = {
     'default': {
-	'ENGINE': 'django.db.backends.postgresql_psycopg2',
-	'NAME': 'timesee',
-	'USER': 'admin',
-	'PASSWORD': 'adminadmin',
-	'HOST': 'localhost',
-	'PORT': '',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
+
 }
 
 
@@ -138,7 +135,6 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
     '/var/www/static/',
 ]
-
 #STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
 #Authentication by username and email
@@ -159,12 +155,12 @@ from django.urls import reverse_lazy
 LOGIN_REDIRECT_URL = reverse_lazy('accounts:Home')
 LOGOUT_REDIRECT_URL = reverse_lazy('main:Main')
 
-#Configuration for reset password by email
+#Configuration for reset password
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'TimeSee Team'
-SERVER_EMAIL = 'youremail@gmail.com'
+SERVER_EMAIL = 'ejemplo@gmail.com'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'youremail@gmail.com'
+EMAIL_HOST_USER = 'ejemplo@gmail.com'
 EMAIL_HOST_PASSWORD = 'ejemplo'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

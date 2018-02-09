@@ -16,9 +16,9 @@ class Payment(models.Model):
 	deadline = models.DateTimeField(null=True, blank=True)
 	method = models.CharField(choices=method_choices, default="Cash", max_length=10)
 	reference_number = models.CharField(max_length=30, null=True, blank=True)
-	voucher = models.ImageField(upload_to="voucher/%Y/%m/%d", null=True, blank=True)	
+	voucher = models.ImageField(upload_to="voucher/%Y/%m/%d", null=True, blank=True)
 	created = models.DateTimeField(default=timezone.now)
-	author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="author", default=1)
+	author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="author", null=True, blank=True)
 
 	def __str__(self):
 		return 'Payment of {} {} until'.format(self.user.first_name, self.user.last_name)
