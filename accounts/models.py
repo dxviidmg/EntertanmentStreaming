@@ -12,15 +12,15 @@ class Profile(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	photo = models.ImageField(upload_to="users/%Y/%m/%d", blank=True, default="/userDefault.png")
 	phone = models.CharField(max_length=13, blank=True, null=True)
-	country = models.CharField(max_length=10, choices=country_choices, default="MX")
+	country = models.CharField(max_length=10, choices=country_choices)
 	locked = models.BooleanField(default=False)
-	monthly_payment = models.DecimalField(decimal_places=2, max_digits=5)
-	foreign_currency = models.CharField(max_length=10, default="MXN")
+	monthly_payment = models.DecimalField(decimal_places=2, max_digits=5, null=True, blank=True)
+	foreign_currency = models.CharField(max_length=10, null=True, blank=True)
 	is_internet_client = models.BooleanField(default=False)
 	free_trial_deadline = models.DateTimeField(null=True, blank=True)
 
 	def __str__(self):
-		return 'Perfil del usuario {} {}'.format(self.user.first_name, self.user.last_name)
+		return 'Profile of {} {}'.format(self.user.first_name, self.user.last_name)
 
 	def UpdateLocking(self):
 		now = timezone.now()
