@@ -9,9 +9,12 @@
 
 		{%if request.user.is_staff%}
 		<h3>User's info</h3>
+		<p>Username: {{user.username}}</p>
 		<p>Name: {{user.get_full_name}}</p>
 		<p>Monthly payment: {{user.profile.monthly_payment}} {{user.profile.foreign_currency}}</p>
 		<p>Country: {{user.profile.country}}</p>
+		<p>E-mail: {{user.email}}</p>
+		<p>Phone: {%if user.profile.phone%}{{user.profile.phone}}{%endif%}</p>		
 		</div>
 		<div class="col-md-6">
 		<form method="post">

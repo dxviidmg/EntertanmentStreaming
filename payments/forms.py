@@ -4,7 +4,7 @@ from .models import Payment
 class PaymentCreateForm(forms.ModelForm):
 	class Meta:
 		model = Payment
-		fields = ('months', 'method',)
+		fields = ('months', 'method', 'reference_number', 'voucher',)
 
 	def __init__(self, *args, **kwargs):
 		self.user = kwargs.pop('user')
