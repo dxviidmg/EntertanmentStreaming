@@ -3,6 +3,7 @@ from django.views.generic import View
 from .models import *
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+import random
 
 class ChannelsListView(View):
 	@method_decorator(login_required)
@@ -27,9 +28,16 @@ class ChannelDetailView(View):
 		channel = get_object_or_404(Channel, slug=slug)
 		category = Category.objects.get(pk=channel.category.pk)
 		similarChannels = Channel.objects.filter(category=category).exclude(pk=channel.pk)
+		listChannels = list(similarChannels)
+
+		if len(listChannels) < 6:
+			randomChannels = random.sample(listChannels, len(listChannels))
+		else:
+			randomChannels = random.sample(listChannels, 6)
+
 		context = {
 			'channel': channel,
 			'category': category,
-			'similarChannels': similarChannels,
+			'randomChannels': randomChannels,
 		}
 		return render(request, template_name, context)

@@ -4,7 +4,7 @@
 
 	<link rel="stylesheet" href="//releases.flowplayer.org/7.0.4/commercial/skin/skin.css">
 
-	<div class="row justify-content-center">
+	<div class="row">
 
 		<div class="flowplayer fixed-controls no-toggle no-time play-button obj col-md-9 col-sm-8 col-11" data-key="$812975748999788" data-live="true" data-share="false" data-ratio="0.5625">
 			<video autoplay="true" stretch="true">
@@ -19,12 +19,13 @@
 		<h3 class="sub-title">Suggestions</h3>
    	</div>
 
-    {%for similarChannel in similarChannels%}
+    {%for randomChannel in randomChannels%}
 
 		<div class="col-6 col-sm-3 col-md-2">
-			<a href="{%url 'TV:ChannelDetail' similarChannel.slug%}">
-				<img src="{{similarChannel.image}}" alt="{{similarChannel.nombre}}" class="d-block mx-auto" style="width: 100%;">
+			<a href="{%url 'TV:ChannelDetail' randomChannel.slug%}">
+				<img src="{{randomChannel.image}}" alt="{{randomChannel.name}}" class="d-block mx-auto" style="width: 100%;">
 			</a>
+			<p class="text-center">{{randomChannel.name}}</p>
 		</div>
 
     {%endfor%}

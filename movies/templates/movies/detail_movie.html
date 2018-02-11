@@ -5,7 +5,7 @@
 	<div class="row">
 		<div class="col-md-7">
 			<h2>{{movie.name}}</h2>
-			<video controls autoplay style="width: 100%;" controlsList="nodownload">
+			<video controls autoplay controlsList="nodownload"  style="width: 100%;">
 			<source src="{{movie.link}}" type="video/mp4">
 			Your browser does not support the video tag.
 			</video>
@@ -24,12 +24,12 @@
 	<h3 class="sub-title">Suggestions</h3>
 	</div>
 
-	{%for similarMovie in similarMovies%}
+	{%for randomMovie in randomMovies%}
 	<div class="col-4 col-sm-3 col-md-2">
-	<a href="{%url 'Movies:MovieDetail' similarMovie.slug%}">
-	<img src="{{similarMovie.image}}" alt="{{similarMovie.name}}" class="d-block mx-auto" style="width: 100%;">
+	<a href="{%url 'Movies:MovieDetail' randomMovie.slug%}">
+	<img src="{{randomMovie.image}}" alt="{{randomMovie.name}}" class="d-block mx-auto" style="width: 100%;">
 	</a>
-	<p class="text-center">{{similarMovie.name}}</p>
+	<p class="text-center">{{randomMovie.name}}. {{randomMovie.year}}</p>
 	</div>
 	{%endfor%}
 	</div>
