@@ -18,43 +18,43 @@ class Profile(models.Model):
 	foreign_currency = models.CharField(max_length=10, null=True, blank=True)
 	is_internet_client = models.BooleanField(default=False)
 	free_trial_deadline = models.DateTimeField(null=True, blank=True)
+	is_premium = models.BooleanField(default=False)
 
 	def __str__(self):
 		return 'Profile of {} {}'.format(self.user.first_name, self.user.last_name)
 
-	def UpdateLocking(self):
+	def UpdateStatus(self):
 		now = timezone.now()
 		last_payment = Payment.objects.filter(user=self.user).last()
 
 		if last_payment is None:
 			if now > self.user.profile.free_trial_deadline:
 				self.locked = True
-				self.save()
 			else:
 				self.locked = False
-				self.save()
+			self.save()
 		else:
+			self.is_premium = True
 			if now > last_payment.deadline:
 				self.locked = True
-				self.save()
 			else:
 				self.locked = False
-				self.save()
+			self.save()
 
 	def save(self, *args, **kwargs):
 		#Define foreign currency and monthly payment
-		if self.country == "USA":
-			self.foreign_currency = "USD"
-			self.monthly_payment = 10
-		elif self.country == "MX":
-			self.foreign_currency = "MXN"
-			if self.is_internet_client == False:
-				self.monthly_payment = 150
-			elif self.is_internet_client == True:
-				self.monthly_payment = 100
-
-		#Define free_trial_deadline
 		if self.user.is_staff == False:
+			if self.country == "USA":
+				self.foreign_currency = "USD"
+				self.monthly_payment = 10
+			elif self.country == "MX":
+				self.foreign_currency = "MXN"
+				if self.is_internet_client == False:
+					self.monthly_payment = 150
+				elif self.is_internet_client == True:
+					self.monthly_payment = 100
+
+				#Define free_trial_deadline
 			self.free_trial_deadline = self.user.date_joined + relativedelta(months=1)
 		super(Profile, self).save(*args, **kwargs)
 

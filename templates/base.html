@@ -6,7 +6,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta charset="utf-8"/>
 		<link rel="stylesheet" type="text/css" href="{%static '/css/styles.css'%}">
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	</head>
 	<body>
@@ -27,10 +26,10 @@
         <a class="nav-link" href="{%url 'accounts:Home'%}">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link {%if request.user.profile.locked == True%}btn disabled {%endif%}" href="{%url 'TV:ChannelsList'%}">TV</a>
+        <a class="nav-link {%if request.user.profile.locked == True%}disabled{%endif%}" href="{%url 'TV:ChannelsList'%}">TV</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link {%if request.user.profile.locked == True%}btn disabled {%endif%}" href="{%url 'Movies:MoviesList'%}">Movies</a>
+        <a class="nav-link {%if request.user.profile.locked == True%}disabled{%endif%}" href="{%url 'Movies:MoviesList'%}">Movies</a>
       </li>
 
       {%if request.user.is_staff%}
@@ -49,6 +48,11 @@
     <ul class="navbar-nav ml-auto">
 
     {%if request.user.is_staff is False%}
+      
+      <span class="navbar-text">
+      {%if request.user.profile.is_premium is True%}Premiun {%else%} Free trial {%endif%}
+      </span>
+      
       <li class="nav-item">
         <a class="nav-link" href="{%url 'payments:PaymentsList'%}">Payments</a>
       </li>

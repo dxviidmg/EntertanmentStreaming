@@ -7,7 +7,7 @@ from django.utils.decorators import method_decorator
 class ChannelsListView(View):
 	@method_decorator(login_required)
 	def get(self, request):
-		template_name = 'TV/ChannelsList.html'
+		template_name = 'TV/list_channels.html'
 		categories = Category.objects.all()
 
 		ListOfChannelsByCategory = []
@@ -23,7 +23,7 @@ class ChannelsListView(View):
 class ChannelDetailView(View):
 	@method_decorator(login_required)
 	def get(self, request, slug):
-		template_name = 'TV/ChannelDetail.html'
+		template_name = 'TV/detail_channel.html'
 		channel = get_object_or_404(Channel, slug=slug)
 		category = Category.objects.get(pk=channel.category.pk)
 		similarChannels = Channel.objects.filter(category=category).exclude(pk=channel.pk)

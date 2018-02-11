@@ -12,10 +12,11 @@
 
 		{%for channel in ChannelsByCategory.channels%}
 
-				<div class="col-4 col-sm-3 col-md-2">
+				<div class="col-4 col-sm-3 col-md-2" style="background-color: red;">
 					<a href="{%url 'TV:ChannelDetail' channel.slug%}">
-						<img src="{{channel.image}}" alt="{{channel.nombre}}" class="d-block mx-auto" style="width: 100%;">
+						<img src="{{channel.image}}" alt="{{channel.name}}" class="d-block mx-auto" style="width: 100%;">
 					</a>
+					<p class="text-center">{{channel.name}}</p>
 				</div>
 
 		{%empty%}
