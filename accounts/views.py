@@ -90,7 +90,7 @@ class CreateViewAccount(View):
 class ListViewAccounts(View):
 	def get(self, request):
 		template_name = "accounts/list_accounts.html"
-		users = User.objects.filter(is_staff=False)
+		users = User.objects.filter(is_staff=False).order_by('pk')
 
 		context = {
 			'users': users
