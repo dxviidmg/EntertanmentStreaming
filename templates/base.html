@@ -7,84 +7,100 @@
 		<meta charset="utf-8"/>
 		<link rel="stylesheet" type="text/css" href="{%static '/css/styles.css'%}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-114419678-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-114419678-1');
+  </script>
+
 	</head>
 	<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="{%if request.user.is_authenticated == False%}{%url 'main:Main'%}{%endif%}">TimeSee</a>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="{%if request.user.is_authenticated == False%}{%url 'main:Main'%}{%endif%}">TimeSee</a>
-
-  {%if request.user.is_authenticated%}
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  {%endif%}
-
-  {%if request.user.is_authenticated%}
-  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <li class="nav-item">
-        <a class="nav-link" href="{%url 'accounts:Home'%}">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link {%if request.user.profile.locked == True%}disabled{%endif%}" href="{%url 'TV:ChannelsList'%}">TV</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link {%if request.user.profile.locked == True%}disabled{%endif%}" href="{%url 'Movies:MoviesList'%}">Movies</a>
-      </li>
-
-      {%if request.user.is_staff%}
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Accounts
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="{%url 'accounts:CreateAccount'%}">Create</a>
-          <a class="dropdown-item" href="{%url 'accounts:ListAccounts'%}">List</a>
-      </li>      
+      {%if request.user.is_authenticated%}
+      
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
       {%endif%}
-    </ul>
 
-    <ul class="navbar-nav ml-auto">
+      {%if request.user.is_authenticated%}
+      
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="{%url 'accounts:Home'%}">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {%if request.user.profile.locked == True%}disabled{%endif%}" href="{%url 'TV:ChannelsList'%}">TV</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {%if request.user.profile.locked == True%}disabled{%endif%}" href="{%url 'Movies:MoviesList'%}">Movies</a>
+          </li>
 
-    {%if request.user.is_staff is False%}
+          {%if request.user.is_staff%}
       
-      <span class="navbar-text">
-      {%if request.user.profile.is_premium is True%}Premiun {%else%} Free trial {%endif%}
-      </span>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Accounts
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="{%url 'accounts:CreateAccount'%}">Create</a>
+              <a class="dropdown-item" href="{%url 'accounts:ListAccounts'%}">List</a>
+            </div>
+          </li>      
       
-      <li class="nav-item">
-        <a class="nav-link" href="{%url 'payments:PaymentsList'%}">Payments</a>
-      </li>
-    {%endif%}
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {{request.user.get_full_name}}
-          <img src="{{request.user.profile.photo.url}}" class="myphoto">
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="{%url 'accounts:Profile'%}">profile</a>
-          <a class="dropdown-item" href="{%url 'accounts:change_password'%}">change password</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="{%url 'accounts:logout'%}">logout</a> 
-        </div>
-      </li>
-    </ul>
-  </div>
-  
-  {%endif%}
-  
-  </div>  
-</nav>  
+          {%endif%}
+      
+        </ul>
+
+        <ul class="navbar-nav ml-auto">
+
+        {%if request.user.is_staff is False%}
+          
+          <span class="navbar-text">
+          {%if request.user.profile.is_premium is True%}Premiun {%else%} Free trial {%endif%}
+          </span>
+          
+          <li class="nav-item">
+            <a class="nav-link" href="{%url 'payments:PaymentsList'%}">Payments</a>
+          </li>
+      
+        {%endif%}
+      
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{request.user.get_full_name}}
+              <img src="{{request.user.profile.photo.url}}" class="myphoto">
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="{%url 'accounts:Profile'%}">profile</a>
+              <a class="dropdown-item" href="{%url 'accounts:change_password'%}">change password</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{%url 'accounts:logout'%}">logout</a> 
+            </div>
+          </li>
+        </ul>
+      </div>
+      
+      {%endif%}
+    </nav>  
  
 		<section class="container content">
-			{%block content%}
+			
+      {%block content%}
 			{%endblock content%}
-		</section>
+	
+  	</section>
 	</body>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  <script type="text/javascript">
-  </script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </html>
