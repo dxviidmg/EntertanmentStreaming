@@ -4,6 +4,7 @@ from .models import *
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 import random
+import urllib.request
 
 class ChannelsListView(View):
 	@method_decorator(login_required)
@@ -16,6 +17,34 @@ class ChannelsListView(View):
 		for category in categories:
 			ListOfChannelsByCategory.append({'category': category.name, 'channels': Channel.objects.filter(category=category)})
 
+		string = ""
+		data = urllib.request.urlopen('http://tecnotv.xyz/lista.m3u')
+		
+		for line in data:
+			line = line.decode("utf-8").replace('\n', ' ').replace('\n', '  ').replace('\n', '   ') 
+			string = string + line
+		data.close()
+
+		con = 0
+		channels = []
+
+		for sentence_channel in string.split('#EXTINF:-1 '):
+			data_channel = sentence_channel.split()
+			if data_channel[0].startswith('tvg-logo') and data_movie[-1].endswith('m3u8'):
+				logo = data_channel[0][10:-1]
+				link = data_channel[-1]
+
+				try:
+					urllib.request.urlopen(link, timeout=1)
+					urllib.request.urlopen(logo, timeout=1)
+#					con = con + 1
+#					print(con, link)
+#					channels.append('pago':PagoRenta.objects.all())
+
+				except:
+					pass					
+
+		print(channels)
 		context = {
 			'ListOfChannelsByCategory': ListOfChannelsByCategory,
 		}
