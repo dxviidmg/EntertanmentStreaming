@@ -19,4 +19,4 @@ class OneSessionPerUserMiddleware(object):
 					request.user.visitor.session_key = current_key
 					request.user.visitor.save()
 			else:
-				Visitor.objects.create(pupil=request.user, session_key=current_key)
+				Visitor.objects.create(pupil=request.user, session_key=current_key)	
