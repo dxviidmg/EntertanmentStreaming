@@ -43,11 +43,15 @@ INSTALLED_APPS = [
     'tv',
     'payments',
     'main',
+    #Modules
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -162,3 +166,5 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'youremail@gmail.com'
 EMAIL_HOST_PASSWORD = 'yourpassword'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+CORS_ORIGIN_ALLOW_ALL = True

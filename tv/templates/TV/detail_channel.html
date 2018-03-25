@@ -13,17 +13,17 @@
 		</div>
 		<div class="col-md-3 col-sm-12 col-12">
 			<img src="{{channel.image}}" width="100%" class="d-none d-md-block">
-   			<p>{{channel.name}}</p>
-   			<strong><p>Notes:</p>
-   			<p>Preference browser: Google Chrome</p>
-   			<p>If this channel did not load successfully, you download the extension CORS Toggle <a href="https://chrome.google.com/webstore/detail/cors-toggle/jioikioepegflmdnbocfhgmpmopmjkim" target="_blank">Here</a> and refresh</p></strong>
-	   </div>
+			<p>{{channel.name}}</p>
+			<strong><p>Notes:</p>
+			<p>Preference browser: Google Chrome</p>
+			<p>If this channel did not load successfully, you add the extension Allow-Control-Allow-Origin: * <a href="https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi?hl=en-US" target="_blank">Here</a>, enable it and refresh</p></strong>
+		</div>
 
-   	<div class="col-12">
+	<div class="col-12">
 		<h3 class="sub-title">Suggestions</h3>
-   	</div>
+	</div>
 
-    {%for randomChannel in randomChannels%}
+	{%for randomChannel in randomChannels%}
 
 		<div class="col-6 col-sm-3 col-md-2">
 			<a href="{%url 'TV:ChannelDetail' randomChannel.slug%}">
@@ -32,7 +32,7 @@
 			<p class="text-center">{{randomChannel.name}}</p>
 		</div>
 
-    {%endfor%}
+	{%endfor%}
 
 	</div>
 	 
