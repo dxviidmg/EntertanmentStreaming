@@ -15,6 +15,7 @@ class Channel(models.Model):
 	name = models.CharField(max_length=30)
 	link = models.TextField()
 	image = models.TextField()
+	link_status = models.CharField(max_length=10, default="Functional")
 	slug = models.SlugField(max_length=200, unique=True)
 	
 	def __str__(self):
