@@ -11,11 +11,16 @@ class Category(models.Model):
 		verbose_name_plural = "categories"
 
 class Channel(models.Model):
+	link_status_choices = (
+		('Functional','Functional'),
+		('Broken','Broken'),
+		('Misspelled', 'Misspelled')
+	)
 	category = models.ForeignKey(Category, related_name="category",on_delete=models.CASCADE)
 	name = models.CharField(max_length=30)
 	link = models.TextField()
 	image = models.TextField()
-	link_status = models.CharField(max_length=10, default="Functional")
+	link_status = models.CharField(max_length=10, default="Functional", choices=link_status_choices)
 	slug = models.SlugField(max_length=200, unique=True)
 	
 	def __str__(self):

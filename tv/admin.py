@@ -4,13 +4,18 @@ import urllib.request
 
 def check_link_status(modeladmin, request, queryset):
 	for qs in queryset:
-		try:
-			urllib.request.urlopen(qs.link, timeout=1)
-			qs.link_status = "Functional"
-			qs.save(update_fields=['link_status'])
-		except:
-			qs.link_status = "Broken"
-			qs.save(update_fields=['link_status'])
+
+		if qs.link.startswith('http') and qs.link.endswith('.m3u8'):
+			try:
+				urllib.request.urlopen(qs.link, timeout=1)
+				qs.link_status = "Functional"
+			except:
+				qs.link_status = "Broken"
+		else:
+			qs.link_status = "Misspelled"
+
+		qs.save(update_fields=['link_status'])
+		
 
 check_link_status.short_description = "Check link status"
 
