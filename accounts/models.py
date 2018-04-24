@@ -16,7 +16,6 @@ class Profile(models.Model):
 	locked = models.BooleanField(default=False)
 	monthly_payment = models.DecimalField(decimal_places=2, max_digits=5, null=True, blank=True)
 	foreign_currency = models.CharField(max_length=10, null=True, blank=True)
-	is_internet_client = models.BooleanField(default=False)
 	free_trial_deadline = models.DateTimeField(null=True, blank=True)
 	is_premium = models.BooleanField(default=False)
 
@@ -49,10 +48,7 @@ class Profile(models.Model):
 				self.monthly_payment = 10
 			elif self.country == "MX":
 				self.foreign_currency = "MXN"
-				if self.is_internet_client == False:
-					self.monthly_payment = 150
-				elif self.is_internet_client == True:
-					self.monthly_payment = 100
+				self.monthly_payment = 100
 
 				#Define free_trial_deadline
 			self.free_trial_deadline = self.user.date_joined + relativedelta(months=1)

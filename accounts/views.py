@@ -63,9 +63,13 @@ class CreateViewAccount(View):
 		UserForm = UserCreateForm()
 		ProfileForm = ProfileCreateForm()
 		last_account = User.objects.last()
+		accounts_limit = 1000
+		accounts_total = User.objects.filter(is_staff=False).count()
 		context = {
-		'UserForm':UserForm,
-		'ProfileForm': ProfileForm
+			'accounts_limit': accounts_limit,
+			'accounts_total': accounts_total,
+			'UserForm':UserForm,
+			'ProfileForm': ProfileForm
 		}
 		return render(request,template_name,context)
 	def post(self,request):
@@ -77,16 +81,21 @@ class CreateViewAccount(View):
 		if UserForm.is_valid() and ProfileForm.is_valid():
 			NewUser = UserForm.save(commit=False)
 			NewUser.username = str(last_account.pk + 1)
-			NewUser.first_name = str(UserForm.cleaned_data['first_name'])
-			NewUser.last_name = str(UserForm.cleaned_data['last_name'])
+#			NewUser.first_name = str(UserForm.cleaned_data['first_name'])
+#			NewUser.last_name = str(UserForm.cleaned_data['last_name'])
 			NewUser.set_password('timesee1')
 			NewUser.save()
 
 			NewProfile = ProfileForm.save(commit=False)
 			NewProfile.user = NewUser
 			NewProfile.save()
-			return redirect('payments:PaymentsListClient', NewUser.username)
-
+		else:
+			context = {
+				'UserForm':UserForm,
+				'ProfileForm': ProfileForm
+			}
+			return render(request,template_name,context)
+		return redirect('payments:PaymentsListClient', NewUser.username)
 class ListViewAccounts(View):
 	def get(self, request):
 		template_name = "accounts/list_accounts.html"
