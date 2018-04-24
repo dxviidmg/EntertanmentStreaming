@@ -13,7 +13,7 @@ class Category(models.Model):
 
 class Movie(models.Model):
 	category = models.ForeignKey(Category, related_name="category", on_delete=models.CASCADE)
-	name = models.CharField(max_length=30)
+	name = models.CharField(max_length=50)
 	link = models.TextField()
 	image = models.TextField()
 	synopsis = models.TextField()

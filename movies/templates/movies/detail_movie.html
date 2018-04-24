@@ -51,7 +51,7 @@
 	<a href="{%url 'Movies:MovieDetail' randomMovie.slug%}">
 	<img src="{{randomMovie.image}}" alt="{{randomMovie.name}}" class="d-block mx-auto" style="width: 100%;">
 	</a>
-	<p class="text-center">{{randomMovie.name}}. {{randomMovie.year}}</p>
+	<p class="text-center">{{randomMovie.name}}<br> {{randomMovie.year}}</p>
 	</div>
 	{%endfor%}
 	</div>
