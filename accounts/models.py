@@ -8,7 +8,6 @@ class Profile(models.Model):
 		("MX", "Mexico"),
 		("USA", "United States of America"),
 	)
-
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	photo = models.ImageField(upload_to="users/%Y/%m/%d", blank=True, default="/userDefault.png")
 	phone = models.CharField(max_length=13, blank=True, null=True)
