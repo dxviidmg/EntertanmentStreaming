@@ -9,12 +9,12 @@ class ChannelsListView(View):
 	@method_decorator(login_required)
 	def get(self, request):
 		template_name = 'TV/list_channels.html'
-		categories = Category.objects.all()
+		categories = Category.objects.filter()
 
 		ListOfChannelsByCategory = []
 
 		for category in categories:
-			ListOfChannelsByCategory.append({'category': category.name, 'channels': Channel.objects.filter(category=category)})
+			ListOfChannelsByCategory.append({'category': category.name, 'channels': Channel.objects.filter(category=category, link_status="Functional")})
 
 		context = {
 			'ListOfChannelsByCategory': ListOfChannelsByCategory,
@@ -27,7 +27,7 @@ class ChannelDetailView(View):
 		template_name = 'TV/detail_channel.html'
 		channel = get_object_or_404(Channel, slug=slug)
 		category = Category.objects.get(pk=channel.category.pk)
-		similarChannels = Channel.objects.filter(category=category).exclude(pk=channel.pk)
+		similarChannels = Channel.objects.filter(category=category, link_status="Functional").exclude(pk=channel.pk)
 		listChannels = list(similarChannels)
 
 		if len(listChannels) < 6:

@@ -7,7 +7,7 @@ def check_link_status(modeladmin, request, queryset):
 
 		if qs.link.startswith('http') and qs.link.endswith('.m3u8'):
 			try:
-				urllib.request.urlopen(qs.link)
+				urllib.request.urlopen(qs.link, timeout=5)
 				qs.link_status = "Functional"
 			except:
 				qs.link_status = "Broken"
@@ -25,7 +25,7 @@ class ChannelAdmin(admin.ModelAdmin):
 	list_filter = ['category', 'link_status']
 	search_fields = ['name']
 	actions = [check_link_status]
-	list_per_page=50
+	list_per_page=40
 
 admin.site.register(Channel, ChannelAdmin)
 admin.site.register(Category)
