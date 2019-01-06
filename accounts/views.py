@@ -63,11 +63,8 @@ class CreateViewAccount(View):
 		UserForm = UserCreateForm()
 		ProfileForm = ProfileCreateForm()
 		last_account = User.objects.last()
-#		accounts_limit = 1000
 		accounts_total = User.objects.filter(is_staff=False).count()
 		context = {
-#			'accounts_limit': accounts_limit,
-#			'accounts_total': accounts_total,
 			'UserForm':UserForm,
 			'ProfileForm': ProfileForm
 		}
@@ -81,8 +78,6 @@ class CreateViewAccount(View):
 		if UserForm.is_valid() and ProfileForm.is_valid():
 			NewUser = UserForm.save(commit=False)
 			NewUser.username = str(last_account.pk + 1)
-#			NewUser.first_name = str(UserForm.cleaned_data['first_name'])
-#			NewUser.last_name = str(UserForm.cleaned_data['last_name'])
 			NewUser.set_password('timesee1')
 			NewUser.save()
 
