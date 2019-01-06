@@ -18,6 +18,21 @@
     gtag('config', 'UA-114419678-1');
   </script>
 
+  <style type="text/css">
+
+.disabled {
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+.disabled > a {
+  color: currentColor;
+  display: inline-block;  /* For IE11/ MS Edge bug */
+  pointer-events: none;
+  text-decoration: none;
+}
+
+  </style>
+
 	</head>
 	<body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -38,11 +53,11 @@
           <li class="nav-item">
             <a class="nav-link" href="{%url 'accounts:Home'%}">Home <span class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link {%if request.user.profile.locked == True%}disabled{%endif%}" href="{%url 'TV:ChannelsList'%}">TV</a>
+          <li class="nav-item {%if request.user.profile.locked == True%}disabled{%endif%}">
+            <a class="nav-link" href="{%url 'TV:ChannelsList'%}">TV</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link {%if request.user.profile.locked == True%}disabled{%endif%}" href="{%url 'Movies:MoviesList'%}">Movies</a>
+          <li class="nav-item {%if request.user.profile.locked == True%}disabled{%endif%}">
+            <a class="nav-link" href="{%url 'Movies:MoviesList'%}">Movies</a>
           </li>
 
           {%if request.user.is_staff%}

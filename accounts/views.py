@@ -54,7 +54,7 @@ class ViewHome(View):
 		template_name = 'accounts/home.html'
 		profile = Profile.objects.get(user=request.user)
 		if request.user.is_staff == False:
-			profile.UpdateStatus()
+			profile.update_status()
 		return render(request, template_name)
 
 class CreateViewAccount(View):
@@ -63,11 +63,11 @@ class CreateViewAccount(View):
 		UserForm = UserCreateForm()
 		ProfileForm = ProfileCreateForm()
 		last_account = User.objects.last()
-		accounts_limit = 1000
+#		accounts_limit = 1000
 		accounts_total = User.objects.filter(is_staff=False).count()
 		context = {
-			'accounts_limit': accounts_limit,
-			'accounts_total': accounts_total,
+#			'accounts_limit': accounts_limit,
+#			'accounts_total': accounts_total,
 			'UserForm':UserForm,
 			'ProfileForm': ProfileForm
 		}
@@ -96,6 +96,7 @@ class CreateViewAccount(View):
 			}
 			return render(request,template_name,context)
 		return redirect('payments:PaymentsListClient', NewUser.username)
+
 class ListViewAccounts(View):
 	def get(self, request):
 		template_name = "accounts/list_accounts.html"

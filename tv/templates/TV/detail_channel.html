@@ -12,60 +12,42 @@
 			</video>
 		</div>
 		<div class="col-md-4 col-sm-12 col-12">
-			<img src="{{channel.image}}" width="100%" class="d-none d-md-block">
+			<img src="{{channel.image}}" width="100" class="d-none d-md-block">
 			<strong><p>{{channel.name}}</p>
 			<p>Notes:</p></strong>
 
-
-
-
-<div class="accordion" id="accordionExample">
-  <div class="card">
-    <div class="card-header" id="headingOne">
-      <h5 class="mb-0">
-        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          English
-        </button>
-      </h5>
-    </div>
-
-    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-      <div class="card-body">
-
-
-        	<p>Preference browser: Google Chrome</p>
-			<p>If this channel did not load successfully, you add the extension Allow-Control-Allow-Origin: * <a href="https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi?hl=en-US" target="_blank">here</a>, enable it and refresh the site</p>
-
-
-      </div>
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-header" id="headingTwo">
-      <h5 class="mb-0">
-        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          Spanish
-        </button>
-      </h5>
-    </div>
-    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-      <div class="card-body">
-
-
-
-			<p>Navegador de preferencia: Google Chrome</p>
-			<p>Si este canal no se cargó correctamente, agregue la extensión Allow-Control-Allow-Origin: * <a href="https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi?hl=en-US" target="_blank">aquí</a>, habilítala y actualiza la pagína</p>
-
-
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-
+			<div class="accordion" id="accordionExample">
+				<div class="card">
+					<div class="card-header" id="headingOne">
+						<h5 class="mb-0">
+							<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+							English
+							</button>
+						</h5>
+					</div>
+					<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+						<div class="card-body">
+							<p>Preference browser: Google Chrome</p>
+							<p>If this channel did not load successfully, you add the extension Allow-Control-Allow-Origin: * <a href="https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi?hl=en-US" target="_blank">here</a>, enable it and refresh the site</p>
+						</div>
+					</div>
+				</div>
+				<div class="card">
+					<div class="card-header" id="headingTwo">
+						<h5 class="mb-0">
+						<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+						Spanish
+						</button>
+						</h5>
+					</div>
+					<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+						<div class="card-body">
+							<p>Navegador de preferencia: Google Chrome</p>
+							<p>Si este canal no se cargó correctamente, agregue la extensión Allow-Control-Allow-Origin: * <a href="https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi?hl=en-US" target="_blank">aquí</a>, habilítala y actualiza la pagína</p>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 
 	<div class="col-12">
@@ -95,5 +77,36 @@
 			}); 
 		});
   </script>  
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<!-- Or if you want a more recent canary version -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/hls.js@canary"></script> -->
+<video id="video"></video>
+<script>
+  var video = document.getElementById('video');
+  if(Hls.isSupported()) {
+    var hls = new Hls();
+    hls.loadSource({{channel.link}});
+    hls.attachMedia(video);
+    hls.on(Hls.Events.MANIFEST_PARSED,function() {
+      video.play();
+  });
+ }
+ // hls.js is not supported on platforms that do not have Media Source Extensions (MSE) enabled.
+ // When the browser has built-in HLS support (check using `canPlayType`), we can provide an HLS manifest (i.e. .m3u8 URL) directly to the video element throught the `src` property.
+ // This is using the built-in support of the plain video element, without using hls.js.
+ // Note: it would be more normal to wait on the 'canplay' event below however on Safari (where you are most likely to find built-in HLS support) the video.src URL must be on the user-driven
+ // white-list before a 'canplay' event will be emitted; the last video event that can be reliably listened-for when the URL is not on the white-list is 'loadedmetadata'.
+  else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+    video.src = {{channel.link}};
+    video.addEventListener('loadedmetadata',function() {
+      video.play();
+    });
+  }
+</script>
+
+
 
 {%endblock content%}

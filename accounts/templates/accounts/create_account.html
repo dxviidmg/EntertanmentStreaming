@@ -3,7 +3,6 @@
 {%block content%}
 	<h1>Create account</h1>
 
-	{%if accounts_limit > accounts_total%}
 	<form action="." method="post" class="centrar">
 		{%csrf_token%}
 
@@ -13,16 +12,8 @@
 		{{ field.errors }}
 		{%endfor%}
 
-		{{ProfileForm.as_p}}
+	{{ProfileForm.as_p}}
 		<input type="submit" value="Create account">
 	</form>
-	{%else%}
-
-	<br>
-	<h3>You have reached your accounts limit, if you want to add more, contact your provider.</h3>
-
-	{%endif%}
-
-
 
 {%endblock content%}

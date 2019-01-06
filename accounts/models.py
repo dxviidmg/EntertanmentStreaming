@@ -21,7 +21,7 @@ class Profile(models.Model):
 	def __str__(self):
 		return 'Profile of {} {}'.format(self.user.first_name, self.user.last_name)
 
-	def UpdateStatus(self):
+	def update_status(self):
 		now = timezone.now()
 		last_payment = Payment.objects.filter(user=self.user).last()
 
@@ -49,7 +49,7 @@ class Profile(models.Model):
 				self.foreign_currency = "MXN"
 				self.monthly_payment = 100
 
-				#Define free_trial_deadline
+			#Define free_trial_deadline
 			self.free_trial_deadline = self.user.date_joined + relativedelta(months=1)
 		super(Profile, self).save(*args, **kwargs)
 
