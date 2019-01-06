@@ -20,16 +20,7 @@
 
   <style type="text/css">
 
-.disabled {
-  cursor: not-allowed;
-  opacity: 0.8;
-}
-.disabled > a {
-  color: currentColor;
-  display: inline-block;  /* For IE11/ MS Edge bug */
-  pointer-events: none;
-  text-decoration: none;
-}
+
 
   </style>
 
@@ -53,10 +44,10 @@
           <li class="nav-item">
             <a class="nav-link" href="{%url 'accounts:Home'%}">Home <span class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item {%if request.user.profile.locked == True%}disabled{%endif%}">
+          <li class="nav-item {%if request.user.profile.enabled == False%}disabled{%endif%}">
             <a class="nav-link" href="{%url 'TV:ChannelsList'%}">TV</a>
           </li>
-          <li class="nav-item {%if request.user.profile.locked == True%}disabled{%endif%}">
+          <li class="nav-item {%if request.user.profile.enabled == False%}disabled{%endif%}">
             <a class="nav-link" href="{%url 'Movies:MoviesList'%}">Movies</a>
           </li>
 
@@ -81,7 +72,9 @@
         {%if request.user.is_staff is False%}
           
           <span class="navbar-text">
-          {%if request.user.profile.is_premium is True%}Premiun {%else%} Free trial {%endif%}
+          
+            {%if request.user.profile.is_premium == True and request.user.profile.enable == True%}Premium (Enabled) {%elif request.user.profile.is_premium == True and request.user.profile.enable == False%}Premium (Locked){%elif request.user.profile.is_premium == False and request.user.profile.enable == True%}Free trial (Enable){%else%} Free trial (Finished) {%endif%}
+
           </span>
           
           <li class="nav-item">

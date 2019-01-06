@@ -12,7 +12,7 @@ class Profile(models.Model):
 	photo = models.ImageField(upload_to="users/%Y/%m/%d", blank=True, default="/userDefault.png")
 	phone = models.CharField(max_length=13, blank=True, null=True)
 	country = models.CharField(max_length=10, choices=country_choices)
-	locked = models.BooleanField(default=False)
+	enabled = models.BooleanField(default=True)
 	monthly_payment = models.DecimalField(decimal_places=2, max_digits=5, null=True, blank=True)
 	foreign_currency = models.CharField(max_length=10, null=True, blank=True)
 	free_trial_deadline = models.DateTimeField(null=True, blank=True)
@@ -27,16 +27,16 @@ class Profile(models.Model):
 
 		if last_payment is None:
 			if now > self.user.profile.free_trial_deadline:
-				self.locked = True
+				self.enabled = False
 			else:
-				self.locked = False
+				self.enabled = True
 			self.save()
 		else:
 			self.is_premium = True
 			if now > last_payment.deadline:
-				self.locked = True
+				self.enabled = False
 			else:
-				self.locked = False
+				self.enabled = True
 			self.save()
 
 	def save(self, *args, **kwargs):

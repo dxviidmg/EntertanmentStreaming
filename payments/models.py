@@ -21,7 +21,7 @@ class Payment(models.Model):
 	author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="author", default=1)
 
 	def __str__(self):
-		return 'Payment of {} {} until'.format(self.user.first_name, self.user.last_name)
+		return 'Payment of {} {} until {}'.format(self.user.first_name, self.user.last_name, self.deadline)
 
 	def save(self, *args, **kwargs):
 		now = timezone.now()

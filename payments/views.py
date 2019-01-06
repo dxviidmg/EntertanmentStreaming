@@ -14,7 +14,8 @@ class PaymentsListView(View):
 			user = User.objects.get(pk=pk)
 		else:
 			user = User.objects.get(pk=request.user.pk)
-		
+
+		user.profile.update_status()		
 		form = PaymentCreateForm(user=user, author=request.user)
 		payments = Payment.objects.filter(user=user)
 

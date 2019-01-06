@@ -27,3 +27,14 @@
     height: 100vh;
     padding: 20px;
 }
+
+.disabled {
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+.disabled > a {
+  color: currentColor;
+  display: inline-block;  /* For IE11/ MS Edge bug */
+  pointer-events: none;
+  text-decoration: none;
+}

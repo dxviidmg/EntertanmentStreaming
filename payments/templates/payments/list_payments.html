@@ -3,19 +3,27 @@
 {%block content%}
 
 <div class="row">
-	<div class="col-md-6">
-		
-		 <h1>Payments</h1>
-
-		{%if request.user.is_staff%}
+	{%if request.user.is_staff%}
+	<div class="col-12">
+		<a href="{%url 'accounts:ListAccounts'%}">Accounts</a>
+	</div>
+	<div class="col-md-3">
 		<h3>User's info</h3>
 		<p>Username: {{user.username}}</p>
 		<p>Name: {{user.get_full_name}}</p>
-		<p>Monthly payment: {{user.profile.monthly_payment}} {{user.profile.foreign_currency}}</p>
-		<p>Country: {{user.profile.country}}</p>
 		<p>E-mail: {{user.email}}</p>
-		<p>Phone: {%if user.profile.phone%}{{user.profile.phone}}{%endif%}</p>		
+		<p>Monthly payment: {{user.profile.monthly_payment}} {{user.profile.foreign_currency}}</p>
 		</div>
+	<div class="col-md-3">
+		<br><br>
+		<p>Country: {{user.profile.country}}</p>
+		<p>Phone: {%if user.profile.phone%}{{user.profile.phone}}{%endif%}</p>
+		<p>Enabled: {{user.profile.enabled}}</p>
+		<p>Premium: {{user.profile.is_premium}}</p>		
+	</div>
+
+
+
 		<div class="col-md-6">
 		<form method="post">
 			<div class="form-group">
@@ -25,11 +33,14 @@
 				<button type="submit">Save changes</button>
 			</div>
 		</form>
-		<h3>List</h3>
-		{%endif%}
+		
 	</div>
+	{%endif%}
 	
-	
+	<div class="col-12">
+		<h1>Payments</h1>
+	</div>
+
 	<div class="col-12">
 		<div class="table-responsive">
 			<table class="table table-bordered text-center">
@@ -37,7 +48,7 @@
 					<tr>
 						<th>Date</th>
 						<th>Identifier number</th>
-
+						<th>Months</th>
 						<th>Validate until</th>
 						<th>Method</th>
 						<th>Quantity</th>
@@ -49,10 +60,24 @@
 					</tr>
 				</thead>
 				<tbody>
+					<tr>
+						<td>{{user.date_joined}}</td>
+						<td>N/A</td>
+						<td>1 (free trial)</td>
+						<td>{{user.profile.free_trial_deadline}}</td>
+						<td>N/A</td>
+						<td>N/A</td>
+						<td>N/A</td>
+						<td>N/A</td>
+						{%if request.user.is_staff%}
+						<td>N/A</td>
+						{%endif%}	
+					</tr>
 		{%for payment in payments%}
 					<tr>
 						<td>{{payment.created}}</td>
-						<td>{{payment.pk}}</td>
+						<td>{{payment.pk}}</td>	
+						<td>{{payment.months}}</td>
 						<td>{{payment.deadline}}</td>
 						<td>{{payment.method}}</td>
 						<td>${{payment.quantity}} {{user.profile.foreign_currency}}</td>
@@ -61,11 +86,6 @@
 						{%if request.user.is_staff%}
 						<td>{{payment.author}}</td>
 						{%endif%}
-					</tr>
-
-		{%empty%}
-					<tr>
-						<td colspan="{%if request.user.is_staff%}8{%else%}9{%endif%}">Payments list empty</td>
 					</tr>
 		{%endfor%}
 				</tbody>
