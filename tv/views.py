@@ -11,6 +11,8 @@ class ChannelsListView(View):
 		template_name = 'TV/list_channels.html'
 		categories = Category.objects.filter()
 
+		request.user.profile.update_status()
+		
 		ListOfChannelsByCategory = []
 
 		for category in categories:

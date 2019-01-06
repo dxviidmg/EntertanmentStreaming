@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View
 from django.contrib.auth.models import User
 from .models import *
@@ -8,15 +8,17 @@ from .forms import *
 
 class PaymentsListView(View):
 	@method_decorator(login_required)
-	def get(self, request, pk=None):
+	def get(self, request, username=None):
 		template_name = 'payments/list_payments.html'
 		if request.user.is_staff:
-			user = User.objects.get(pk=pk)
+			author = get_object_or_404(User, username=request.user.username)
+			user = User.objects.get(username=username)
+			form = PaymentCreateForm(user=user, author=author)
 		else:
-			user = User.objects.get(pk=request.user.pk)
+			user = User.objects.get(username=request.user.username)
+			form = None
+			user.profile.update_status()
 
-		user.profile.update_status()		
-		form = PaymentCreateForm(user=user, author=request.user)
 		payments = Payment.objects.filter(user=user)
 
 		context = {
@@ -25,14 +27,16 @@ class PaymentsListView(View):
 			'form': form,
 		}
 		return render(request, template_name, context)
-	def post(self, request, pk=None):
-		template_name = 'payments/PaymentsList.html'		
-		if request.user.is_staff:
-			user = User.objects.get(pk=pk)
-		else:
-			user = User.objects.get(pk=request.user.pk)
-		
+	def post(self, request, username=None):
+#		if request.user.is_staff:
+		author = get_object_or_404(User, username=request.user.username)
+		user = User.objects.get(username=username)
+#			form = PaymentCreateForm(user=user, author=author)
 		form = PaymentCreateForm(data=request.POST, files=request.FILES, author=request.user, user=user)
 		if form.is_valid():
-			form.save()		
-		return redirect('payments:PaymentsListClient', user.pk)
+			form.save()
+#		else:
+#			user = User.objects.get(user=request.username)
+#			form = None
+
+		return redirect('payments:PaymentsListClient', user.username)

@@ -23,8 +23,8 @@
 							<td>{{user.get_full_name}}</td>
 							<td>{{user.email}}</td>
 							<td>{{user.profile.country}}</td>		
-							<td>{{user.profile.enabled}}</td>
-							<td><a href="{%url 'payments:PaymentsListClient' user.pk%}">Pay</a></td>	
+							<td>{{user.profile.is_enabled}}</td>
+							<td><a href="{%url 'payments:PaymentsListClient' user.username%}">Pay</a></td>	
 						</tr>
 
 	{%empty%}

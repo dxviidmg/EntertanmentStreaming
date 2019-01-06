@@ -18,19 +18,15 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       
-      {%endif%}
-
-      {%if request.user.is_authenticated%}
-      
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
           <li class="nav-item">
             <a class="nav-link" href="{%url 'accounts:Home'%}">Home <span class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item {%if request.user.profile.enabled == False%}disabled{%endif%}">
+          <li class="nav-item {%if request.user.profile.is_enabled == False%}disabled{%endif%}">
             <a class="nav-link" href="{%url 'TV:ChannelsList'%}">TV</a>
           </li>
-          <li class="nav-item {%if request.user.profile.enabled == False%}disabled{%endif%}">
+          <li class="nav-item {%if request.user.profile.is_enabled == False%}disabled{%endif%}">
             <a class="nav-link" href="{%url 'Movies:MoviesList'%}">Movies</a>
           </li>
 
@@ -56,7 +52,7 @@
           
           <span class="navbar-text">
           
-            {%if request.user.profile.is_premium == True and request.user.profile.enable == True%}Premium (Enabled) {%elif request.user.profile.is_premium == True and request.user.profile.enable == False%}Premium (Locked){%elif request.user.profile.is_premium == False and request.user.profile.enable == True%}Free trial (Enable){%else%} Free trial (Finished) {%endif%}
+            {%if request.user.profile.is_premium == True and request.user.profile.is_enabled == True%}Premium (Enabled) {%elif request.user.profile.is_premium == True and request.user.profile.is_enabled == False%}Premium (Locked){%elif request.user.profile.is_premium == False and request.user.profile.is_enabled == True%}Free trial (Enable){%else%} Free trial (Finished) {%endif%}
 
           </span>
           

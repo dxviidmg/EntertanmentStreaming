@@ -12,7 +12,7 @@ class Profile(models.Model):
 	photo = models.ImageField(upload_to="users/%Y/%m/%d", blank=True, default="/userDefault.png")
 	phone = models.CharField(max_length=13, blank=True, null=True)
 	country = models.CharField(max_length=10, choices=country_choices)
-	enabled = models.BooleanField(default=True)
+	is_enabled = models.BooleanField(default=True)
 	monthly_payment = models.DecimalField(decimal_places=2, max_digits=5, null=True, blank=True)
 	foreign_currency = models.CharField(max_length=10, null=True, blank=True)
 	free_trial_deadline = models.DateTimeField(null=True, blank=True)
@@ -22,21 +22,22 @@ class Profile(models.Model):
 		return 'Profile of {} {}'.format(self.user.first_name, self.user.last_name)
 
 	def update_status(self):
-		now = timezone.now()
-		last_payment = Payment.objects.filter(user=self.user).last()
+		if self.user.is_staff == False:
+			now = timezone.now()
+			last_payment = Payment.objects.filter(user=self.user).last()
 
-		if last_payment is None:
-			if now > self.user.profile.free_trial_deadline:
-				self.enabled = False
+			if last_payment is None:
+				self.is_premium = False
+				if now > self.user.profile.free_trial_deadline:
+					self.is_enabled = False
+				else:
+					self.is_enabled = True
 			else:
-				self.enabled = True
-			self.save()
-		else:
-			self.is_premium = True
-			if now > last_payment.deadline:
-				self.enabled = False
-			else:
-				self.enabled = True
+				self.is_premium = True
+				if now > last_payment.deadline:
+					self.is_enabled = False
+				else:
+					self.is_enabled = True
 			self.save()
 
 	def save(self, *args, **kwargs):

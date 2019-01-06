@@ -14,6 +14,8 @@ class MoviesListView(View):
 		template_name = 'movies/list_movies.html'
 		categories = Category.objects.all()
 
+		request.user.profile.update_status()
+
 		ListOfMoviesByCategory = []
 
 		for category in categories:
