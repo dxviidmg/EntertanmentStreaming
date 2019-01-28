@@ -31,4 +31,4 @@ class Payment(models.Model):
 			self.deadline = last_payment.deadline + relativedelta(months=self.months)
 		else:
 			self.deadline = self.created + relativedelta(months=self.months)
-		super(Payment, self).save(*args, **kwargs)		
+		super(Payment, self).save(*args, **kwargs)
