@@ -7,8 +7,15 @@ def check_link_status(modeladmin, request, queryset):
 
 		if qs.link.startswith('http') and qs.link.endswith('.m3u8'):
 			try:
-				urlopen(qs.link, timeout=5).getcode()
-				qs.link_status = "Functional"
+				url_open = urlopen(qs.link, timeout=5)
+				code = url_open.getcode()
+				content_type = url_open.getheader('Content-Type')
+#				print(content_type)
+				if content_type.startswith('video'):
+#					print(qs.link)
+					qs.link_status = "Broken"
+				else:
+					qs.link_status = "Functional"
 			except:
 				qs.link_status = "Broken"
 		else:
