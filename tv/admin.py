@@ -11,7 +11,7 @@ def check_link_status(modeladmin, request, queryset):
 				code = url_open.getcode()
 				content_type = url_open.getheader('Content-Type')
 #				print(content_type)
-				if content_type.startswith('video'):
+				if content_type.startswith('video') or content_type.startswith('text'):
 #					print(qs.link)
 					qs.link_status = "Broken"
 				else:
