@@ -16,6 +16,7 @@ class Channel(models.Model):
 		('Broken','Broken'),
 		('Misspelled', 'Misspelled')
 	)
+	
 	category = models.ForeignKey(Category, related_name="category",on_delete=models.CASCADE)
 	name = models.CharField(max_length=30)
 	link = models.TextField()
