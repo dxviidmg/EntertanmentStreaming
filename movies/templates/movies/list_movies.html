@@ -5,6 +5,11 @@
 	<div class="row">
 		<div class="col-12">
 
+	<form method="GET" action="">
+		<input type="text" name="query" placeholder="Nombre" value="{{request.GET.query}}">
+		<input type="submit" value="Buscar">
+	</form>
+
 		{%for MoviesByCategory in ListOfMoviesByCategory%}
 
 			<h2>{{MoviesByCategory.category}}</h2>

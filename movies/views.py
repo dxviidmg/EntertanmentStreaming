@@ -14,12 +14,15 @@ class MoviesListView(View):
 		template_name = 'movies/list_movies.html'
 		categories = Category.objects.all()
 
-		request.user.profile.update_status()
+		query = request.GET.get("query")
 
 		ListOfMoviesByCategory = []
 
 		for category in categories:
-			ListOfMoviesByCategory.append({'category': category.name, 'movies': Movie.objects.filter(category=category)})
+			if query:
+				ListOfMoviesByCategory.append({'category': category.name, 'movies': Movie.objects.filter(category=category, link_status="Functional", name__contains=query)})
+			else:
+				ListOfMoviesByCategory.append({'category': category.name, 'movies': Movie.objects.filter(category=category, link_status="Functional")})
 
 		context = {
 			'ListOfMoviesByCategory': ListOfMoviesByCategory,

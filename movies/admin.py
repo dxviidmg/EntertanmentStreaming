@@ -4,24 +4,18 @@ from urllib.request import urlopen
 
 def check_link_status(modeladmin, request, queryset):
 	for qs in queryset:
-
-#		if qs.link.startswith('http'):
 		try:
 			url_open = urlopen(qs.link, timeout=5)
 			code = url_open.getcode()
 			content_type = url_open.getheader('Content-Type')
-			print(code)
+#			print(code)
 			qs.link_status = "Functional"
 		except:
 			qs.link_status = "Broken or Misspelled"
 
 		qs.save(update_fields=['link_status'])
 		
-
 check_link_status.short_description = "Check link status"
-
-
-
 
 class MovieAdmin(admin.ModelAdmin):
 	prepopulated_fields = {'slug': ('name', 'year')}
