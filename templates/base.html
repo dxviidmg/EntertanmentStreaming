@@ -30,6 +30,9 @@
           <li class="nav-item {%if request.user.profile.is_enabled == False%}disabled{%endif%}">
             <a class="nav-link" href="{%url 'Movies:MoviesList'%}">Movies</a>
           </li>
+          <li class="nav-item {%if request.user.profile.is_enabled == False%}disabled{%endif%}">
+            <a class="nav-link" href="{%url 'Series:SeriesList'%}">Series</a>
+          </li>
 
           {%if request.user.is_staff%}
       

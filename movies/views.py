@@ -38,7 +38,7 @@ class MovieDetailView(View):
 		category = Category.objects.get(pk=movie.category.pk)
 		similarMovies = Movie.objects.filter(category=category).exclude(pk=movie.pk)
 
-		condition1 = reduce(operator.or_,[Q(name__icontains=work) for work in name_movie])
+		condition1 = reduce(operator.or_,[Q(name__icontains=word) for word in name_movie])
 		similarMovies = similarMovies.filter(Q(condition1) | Q(year=movie.year))
 
 		listMovies = list(similarMovies)

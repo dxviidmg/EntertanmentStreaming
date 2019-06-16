@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'tv',
     'payments',
     'main',
+    'series',
     #Modules
     'corsheaders',
 ]

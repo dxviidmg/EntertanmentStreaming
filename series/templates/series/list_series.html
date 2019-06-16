@@ -1,0 +1,37 @@
+{%extends 'base.html'%}
+
+{%block content%}
+
+	<div class="row">
+		<div class="col-12">
+
+	{%for SeriesByCategory in ListOfSeriesByCategory%}
+
+			<h2>{{SeriesByCategory.category}}</h2>
+			<div class="row">
+
+		{%for serie in SeriesByCategory.series%}
+
+				<div class="col-4 col-sm-3 col-md-2">
+					<a href="{%url 'Series:SerieDetail' serie.slug%}">
+						<img src="{{serie.image}}" alt="{{serie.name}}" class="d-block mx-auto" style="width: 100%;">
+					</a>
+					<p class="text-center" style="bottom: 0; ">{{serie.name}}</p>
+				</div>
+
+		{%empty%}
+
+				<div class="col-12">	
+					<p>Series list empty</p>
+				</div>
+
+		{%endfor%}
+
+			</div>
+
+	{%endfor%}
+
+		</div>
+	</div>
+
+{%endblock content%}

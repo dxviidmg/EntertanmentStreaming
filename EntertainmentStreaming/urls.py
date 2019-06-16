@@ -31,7 +31,8 @@ urlpatterns = [
     re_path(r'^movies/', include('movies.urls')),
     url(r'^', include(accountsUrls, namespace="accounts")),
     re_path(r'^payments/', include('payments.urls')),
-    re_path(r'^', include('main.urls')),    
+    re_path(r'^', include('main.urls')),
+    re_path(r'^', include('series.urls')),        
 ]
 
 #Media

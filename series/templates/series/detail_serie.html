@@ -1,0 +1,50 @@
+{%extends 'base.html'%}
+
+{%block content%}
+
+	<div class="row">
+		<div class="col-12">
+
+			<h2>{{serie}}</h2>
+	{%for ChaptersBySeason in ListOfChaptersBySeason%}
+
+			<h3>Season {{ChaptersBySeason.season}}</h3>
+			<div class="row">
+
+				<table class="table">
+  					<thead>
+    					<tr>
+      						<th scope="col">Chapter</th>
+							<th scope="col">Name</th>
+							<th scope="col">Synopsis</th>
+							<th scope="col">See</th>
+						</tr>
+					</thead>
+					<tbody>
+
+		{%for chapter in ChaptersBySeason.chapters%}
+
+					<tr>
+						<th scope="row">{{chapter.number}}</th>
+						<td>{{chapter.name}}</td>
+						<td>{{chapter.synopsis}}}</td>
+						<td><a href="{%url 'Series:ChapterDetail' chapter.slug%}">Here</a></td>
+					</tr>
+		{%empty%}
+
+					<tr>
+						<td>Chapter list empty</td>
+					</tr>
+
+		{%endfor%}
+
+					</tbody>
+				</table>
+			</div>
+
+	{%endfor%}
+
+		</div>
+	</div>
+
+{%endblock content%}
