@@ -20,7 +20,7 @@ check_link_status.short_description = "Check link status"
 class MovieAdmin(admin.ModelAdmin):
 	prepopulated_fields = {'slug': ('name', 'year')}
 	list_display = ['name', 'category', 'link_status']
-	list_filter = ['category', 'year']
+	list_filter = ['category', 'year', 'link_status']
 	search_fields = ['name']
 	actions = [check_link_status]
 	list_per_page=30
