@@ -47,7 +47,7 @@ class Chapter(models.Model):
 	link = models.TextField()
 	synopsis = models.TextField()
 	duration = models.DurationField()
-	slug = models.SlugField(max_length=200, unique=True, null=True)
+	slug = models.SlugField(max_length=200, unique=True, null=True, blank=True)
 	link_status = models.CharField(max_length=20, default="Functional", choices=link_status_choices)
 
 	def __str__(self):
