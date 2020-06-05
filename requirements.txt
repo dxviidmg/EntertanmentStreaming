@@ -1,4 +1,4 @@
-Django==2.0.1
+Django==2.2.13
 django-cors-headers==2.2.0
 Pillow==5.0.0
 python-dateutil==2.6.1
